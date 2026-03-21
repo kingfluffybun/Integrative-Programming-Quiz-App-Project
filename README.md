@@ -36,21 +36,28 @@ The server will start on port 3001 (or the PORT environment variable).
 ## Project Structure
 
 ```
-express-quiz-app/
+express-quiz_app/
 ├── controllers/
-│   ├── quizController.js    # OpenTDB API logic
-│   └── quiz.js              # Frontend JavaScript logic*
+│   ├── quizController.js    # Backend business logic for quiz operations
+│   └── quiz.js              # Quiz controller (legacy/backup)
 ├── routes/
-│   └── quiz.js             # Quiz API routes
+│   ├── quiz.js              # API routes for quiz endpoints
+│   └── pages.js             # Routes for static pages (home, start, about, quiz)
 ├── views/
-│   └── index.ejs           # Main quiz interface template
+│   ├── index.ejs            # Home page template
+│   ├── quiz.ejs             # Quiz interface template
+│   └── about.ejs            # About page template
 ├── public/
 │   ├── css/
-│   │   └── styles.css      # Application styles
-│   └── ...                 # Other static files (CSS, images, etc.)
-├── app.js                  # Main application file
-├── package.json
-└── README.md
+│   │   └── styles.css       # Application styles (responsive design)
+│   └── js/
+│       └── quiz.js          # Frontend quiz interaction logic
+├── tests/
+│   └── quiz.test.js         # Test suite for quiz functionality
+├── app.js                   # Main application server file
+├── package.json             # Project dependencies and scripts
+├── .gitignore               # Git ignore file for node_modules, env files, etc.
+└── README.md                # Project documentation
 ```
 
 ## API Endpoints
