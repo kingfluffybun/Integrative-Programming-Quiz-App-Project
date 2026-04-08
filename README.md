@@ -39,7 +39,7 @@ The server will start on port 3000 (or the PORT environment variable).
 express-quiz_app/
 ├── controllers/
 │   ├── quizController.js    # Backend business logic for quiz operations
-│   └── quiz.js              # Quiz controller (legacy/backup)
+│   
 ├── routes/
 │   ├── quiz.js              # API routes for quiz endpoints
 │   └── pages.js             # Routes for static pages (home, start, about, quiz)
