@@ -30,7 +30,7 @@ async function loadCategories() {
 
 async function getQuestions() {
   const amount = document.getElementById("amount").value
-  const category = document.getElementById("category").value
+  const category = 32;
   const difficulty = document.getElementById("difficulty").value
 
   const container = document.getElementById("quiz-container")
@@ -88,7 +88,13 @@ function displayQuestions(questions) {
 
 function showQuestion(index) {
   const container = document.getElementById("quiz-container")
+  const main = document.querySelector(".main")
   container.innerHTML = ""
+
+    const existingNav = main.querySelector('.nav-container')                                                                                                                                     
+        if (existingNav) {                                                                                                                                                                           
+        existingNav.remove()                                                                                                                                                                     
+    } 
 
   const question = currentQuestions[index]
   const questionDiv = document.createElement("div")
@@ -127,10 +133,7 @@ function showQuestion(index) {
 
   // Add navigation buttons
   const navContainer = document.createElement("div")
-  navContainer.style.display = "flex"
-  navContainer.style.justifyContent = "space-between"
-  navContainer.style.marginTop = "20px"
-  navContainer.style.gap = "10px"
+  navContainer.className = "nav-container"
 
   const prevBtn = document.createElement("button")
   prevBtn.textContent = index > 0 ? "Previous" : "Previous"
@@ -172,7 +175,7 @@ function showQuestion(index) {
 
   navContainer.appendChild(prevBtn)
   navContainer.appendChild(nextBtn)
-  container.appendChild(navContainer)
+  main.appendChild(navContainer)
 
   // Add event listeners for radio buttons
   const radioButtons = container.querySelectorAll('input[type="radio"]')
@@ -267,6 +270,7 @@ function resetQuiz() {
   container.innerHTML = ""
   currentQuestions = []
   userAnswers = []
+  document.querySelector('.quiz-controls').style.display = "block";
 }
 
 // Load categories on page load
@@ -276,7 +280,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const startBtn = document.getElementById('start-quiz-btn')
   const resetBtn = document.getElementById('reset-quiz-btn')
   
-  if (startBtn) startBtn.addEventListener('click', getQuestions)
+    if (startBtn) startBtn.addEventListener('click', function() {
+        getQuestions()
+        document.querySelector('.quiz-controls').style.display = "none";
+    })
   if (resetBtn) resetBtn.addEventListener('click', resetQuiz)
 })
 
@@ -288,7 +295,10 @@ if (document.readyState === 'loading') {
     const startBtn = document.getElementById('start-quiz-btn')
     const resetBtn = document.getElementById('reset-quiz-btn')
     
-    if (startBtn) startBtn.addEventListener('click', getQuestions)
+    if (startBtn) startBtn.addEventListener('click', function() {
+        getQuestions()
+        document.querySelector('.quiz-controls').style.display = "none";
+    })
     if (resetBtn) resetBtn.addEventListener('click', resetQuiz)
   })
 } else {
