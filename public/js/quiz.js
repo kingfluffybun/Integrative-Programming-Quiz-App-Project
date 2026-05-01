@@ -1,6 +1,7 @@
 // Quiz Application Frontend JavaScript
 let currentQuestions = []
 let userAnswers = []
+let currentQuestionIndex = 0
 
 // Function to decode HTML entities
 function decodeHtml(html) {
@@ -65,65 +66,129 @@ async function getQuestions() {
 }
 
 function displayQuestions(questions) {
+  currentQuestionIndex = 0
   const container = document.getElementById("quiz-container")
   container.innerHTML = ""
 
-  questions.forEach((question, index) => {
-    const questionDiv = document.createElement("div")
-    questionDiv.className = "question"
-
+  // Shuffle answers for each question and store them
+  questions.forEach((question) => {
     const answers = [
       ...question.incorrect_answers,
       question.correct_answer,
     ]
-    // Shuffle answers
     for (let i = answers.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[answers[i], answers[j]] = [answers[j], answers[i]]
     }
-
-    questionDiv.innerHTML = `
-            <h3>Question ${index + 1}: ${decodeHtml(question.question)}</h3>
-            <div class="question-info">
-                <span><strong>Category:</strong> ${question.category}</span>
-                <span><strong>Difficulty:</strong> ${question.difficulty}</span>
-                <span><strong>Type:</strong> ${question.type}</span>
-            </div>
-            <div class="answers">
-                ${answers
-                  .map(
-                    (answer, answerIndex) =>
-                      `<label class="answer-option">
-                        <input type="radio" name="question-${index}" value="${answer}" data-question-index="${index}">
-                        ${decodeHtml(answer)}
-                    </label>`,
-                  )
-                  .join("")}
-            </div>
-        `
-    container.appendChild(questionDiv)
+    question.shuffledAnswers = answers
   })
+
+  showQuestion(currentQuestionIndex)
+}
+
+function showQuestion(index) {
+  const container = document.getElementById("quiz-container")
+  container.innerHTML = ""
+
+  const question = currentQuestions[index]
+  const questionDiv = document.createElement("div")
+  questionDiv.className = "question"
+
+  const progressText = document.createElement("p")
+  progressText.className = "progress-text"
+  progressText.style.textAlign = "center"
+  progressText.style.color = "#666"
+  progressText.style.marginBottom = "20px"
+  progressText.innerHTML = `Question ${index + 1} of ${currentQuestions.length}`
+  container.appendChild(progressText)
+
+  questionDiv.innerHTML = `
+    <h3>${decodeHtml(question.question)}</h3>
+    <div class="question-info">
+        <span><strong>Category:</strong> ${question.category}</span>
+        <span><strong>Difficulty:</strong> ${question.difficulty}</span>
+        <span><strong>Type:</strong> ${question.type}</span>
+    </div>
+    <div class="answers">
+        ${question.shuffledAnswers
+          .map(
+            (answer) => {
+              const isChecked = userAnswers[index] === answer ? 'checked' : ''
+              return `<label class="answer-option">
+                <input type="radio" name="question-${index}" value="${answer}" ${isChecked}>
+                ${decodeHtml(answer)}
+            </label>`
+            }
+          )
+          .join("")}
+    </div>
+  `
+  container.appendChild(questionDiv)
+
+  // Add navigation buttons
+  const navContainer = document.createElement("div")
+  navContainer.style.display = "flex"
+  navContainer.style.justifyContent = "space-between"
+  navContainer.style.marginTop = "20px"
+  navContainer.style.gap = "10px"
+
+  const prevBtn = document.createElement("button")
+  prevBtn.textContent = index > 0 ? "Previous" : "Previous"
+  prevBtn.disabled = index === 0
+  prevBtn.style.background = index === 0 ? "#ccc" : "#6c757d"
+  prevBtn.style.color = "#fff"
+  prevBtn.style.padding = "10px 20px"
+  prevBtn.style.border = "none"
+  prevBtn.style.borderRadius = "5px"
+  prevBtn.style.cursor = index === 0 ? "not-allowed" : "pointer"
+  prevBtn.onclick = () => {
+    if (index > 0) {
+      saveCurrentAnswer()
+      showQuestion(index - 1)
+    }
+  }
+
+  const nextBtn = document.createElement("button")
+  if (index < currentQuestions.length - 1) {
+    nextBtn.textContent = "Next"
+    nextBtn.style.background = "#007bff"
+  } else {
+    nextBtn.textContent = "Submit Quiz"
+    nextBtn.style.background = "#28a745"
+  }
+  nextBtn.style.color = "#fff"
+  nextBtn.style.padding = "10px 20px"
+  nextBtn.style.border = "none"
+  nextBtn.style.borderRadius = "5px"
+  nextBtn.style.cursor = "pointer"
+  nextBtn.onclick = () => {
+    saveCurrentAnswer()
+    if (index < currentQuestions.length - 1) {
+      showQuestion(index + 1)
+    } else {
+      submitQuiz()
+    }
+  }
+
+  navContainer.appendChild(prevBtn)
+  navContainer.appendChild(nextBtn)
+  container.appendChild(navContainer)
 
   // Add event listeners for radio buttons
   const radioButtons = container.querySelectorAll('input[type="radio"]')
   radioButtons.forEach(radio => {
     radio.addEventListener('change', function() {
-      const questionIndex = parseInt(this.getAttribute('data-question-index'))
       const answer = this.value
-      selectAnswer(questionIndex, answer)
+      selectAnswer(index, answer)
     })
   })
+}
 
-  // Add submit button
-  const submitButton = document.createElement("button")
-  submitButton.textContent = "Submit Quiz"
-  submitButton.id = "submit-quiz-btn"
-  submitButton.style.background = "#28a745"
-  submitButton.style.marginTop = "20px"
-  container.appendChild(submitButton)
-
-  // Add event listener for submit button
-  submitButton.addEventListener('click', submitQuiz)
+function saveCurrentAnswer() {
+  const selectedRadio = document.querySelector(`input[name="question-${currentQuestionIndex}"]:checked`)
+  if (selectedRadio) {
+    userAnswers[currentQuestionIndex] = selectedRadio.value
+  }
 }
 
 function selectAnswer(index, answer) {
