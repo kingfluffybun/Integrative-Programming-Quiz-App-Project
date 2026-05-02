@@ -87,62 +87,104 @@ function displayQuestions(questions) {
 }
 
 function showQuestion(index) {
-  const container = document.getElementById("quiz-container")
-  const main = document.querySelector(".main")
-  container.innerHTML = ""
+    const container = document.getElementById("quiz-container")
+    const cont = document.querySelector(".container")
+    const main = document.querySelector(".main")
+    container.innerHTML = ""
 
-    const existingNav = main.querySelector('.nav-container')                                                                                                                                     
-        if (existingNav) {                                                                                                                                                                           
-        existingNav.remove()                                                                                                                                                                     
-    } 
+    const existingNav = main.querySelector('.nav-container')
+    if (existingNav) existingNav.remove()
 
-  const question = currentQuestions[index]
-  const questionDiv = document.createElement("div")
-  questionDiv.className = "question"
+    const question = currentQuestions[index]
+    const questionDiv = document.createElement("div")
+    questionDiv.className = "question"
 
-  const progressText = document.createElement("p")
-  progressText.className = "progress-text"
-  progressText.style.textAlign = "center"
-  progressText.style.color = "#666"
-  progressText.style.marginBottom = "20px"
-  progressText.innerHTML = `Question ${index + 1} of ${currentQuestions.length}`
-  container.appendChild(progressText)
+    const progressText = `Question ${index + 1} of ${currentQuestions.length}`
 
-  questionDiv.innerHTML = `
-    <h3>${decodeHtml(question.question)}</h3>
-    <div class="question-info">
-        <span><strong>Category:</strong> ${question.category}</span>
-        <span><strong>Difficulty:</strong> ${question.difficulty}</span>
-        <span><strong>Type:</strong> ${question.type}</span>
-    </div>
-    <div class="answers">
-        ${question.shuffledAnswers
+    const quizControl = document.createElement("div")
+    quizControl.className = "quiz-control"
+    quizControl.style.display = "grid"
+    quizControl.style.gridTemplateColumns = "1fr 1fr 1fr"
+    quizControl.style.justifyContent = "space-between"
+    quizControl.style.alignItems = "center"
+    quizControl.style.color = "#666"
+    quizControl.innerHTML = `
+        <div style="display: flex; gap: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <p style="text-align: center; font-family: FeatherBold">${progressText}</p>
+        <div style="display: flex; justify-content: flex-end; align-items:center; gap: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+            <p style="font-family: FeatherBold">1000</p>
+        </div>
+    `
+
+    const progressPercentage = ((index) / currentQuestions.length) * 100
+    const persistentHeader = document.getElementById("quiz-persistent-header")
+    persistentHeader.style.cssText = "display: flex; flex-direction: column; gap: 8px;"
+
+    const existingQuizControl = persistentHeader.querySelector(".quiz-control")
+    if (existingQuizControl) existingQuizControl.remove()
+    
+    persistentHeader.prepend(quizControl)
+
+    let fill = persistentHeader.querySelector(".progress-bar-fill")
+
+    if (!fill) {
+        const progression = document.createElement("div")
+        progression.className = "progression"
+        progression.style.cssText = "display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"
+        progression.innerHTML = `
+            <div class="progress-bar" style="width:100%;height:16px;background-color:#e0e0e0;border-radius:16px;overflow:hidden;">
+                <div class="progress-bar-fill" style="width:0%;height:100%;background-color:#4CAF50;transition:width 250ms ease;"></div>
+            </div>
+        `
+        persistentHeader.appendChild(progression)
+        fill = persistentHeader.querySelector(".progress-bar-fill")
+    }
+
+    requestAnimationFrame(() => {
+        fill.style.width = `${progressPercentage}%`
+    })
+    
+  questionDiv.innerHTML = `<h2>${decodeHtml(question.question)}</h2>`
+    // <div class="question-info">
+    //     <span><strong>Category:</strong> ${question.category}</span>
+    //     <span><strong>Difficulty:</strong> ${question.difficulty}</span>
+    //     <span><strong>Type:</strong> ${question.type}</span>
+    // </div>
+
+    const answers = document.createElement("div")
+    answers.classList.add("answers")
+    answers.innerHTML = `
+    ${question.shuffledAnswers
           .map(
             (answer) => {
               const isChecked = userAnswers[index] === answer ? 'checked' : ''
               return `<label class="answer-option">
                 <input type="radio" name="question-${index}" value="${answer}" ${isChecked}>
-                ${decodeHtml(answer)}
+                <div class="answer-option-content">
+                    <p>${decodeHtml(answer)}</p>
+                </div>
             </label>`
             }
           )
           .join("")}
-    </div>
-  `
+    `
+
   container.appendChild(questionDiv)
+  container.appendChild(answers)
 
   // Add navigation buttons
   const navContainer = document.createElement("div")
   navContainer.className = "nav-container"
 
   const prevBtn = document.createElement("button")
+  prevBtn.className = "prevBtn";
   prevBtn.textContent = index > 0 ? "Previous" : "Previous"
   prevBtn.disabled = index === 0
   prevBtn.style.background = index === 0 ? "#ccc" : "#6c757d"
-  prevBtn.style.color = "#fff"
-  prevBtn.style.padding = "10px 20px"
-  prevBtn.style.border = "none"
-  prevBtn.style.borderRadius = "5px"
   prevBtn.style.cursor = index === 0 ? "not-allowed" : "pointer"
   prevBtn.onclick = () => {
     if (index > 0) {
@@ -152,18 +194,15 @@ function showQuestion(index) {
   }
 
   const nextBtn = document.createElement("button")
+  nextBtn.className = "nextBtn";
   if (index < currentQuestions.length - 1) {
     nextBtn.textContent = "Next"
-    nextBtn.style.background = "#007bff"
+    nextBtn.style.background = "currentColor"
   } else {
     nextBtn.textContent = "Submit Quiz"
     nextBtn.style.background = "#28a745"
   }
-  nextBtn.style.color = "#fff"
-  nextBtn.style.padding = "10px 20px"
-  nextBtn.style.border = "none"
-  nextBtn.style.borderRadius = "5px"
-  nextBtn.style.cursor = "pointer"
+  nextBtn.style.cursor = "pointer";
   nextBtn.onclick = () => {
     saveCurrentAnswer()
     if (index < currentQuestions.length - 1) {
@@ -175,7 +214,7 @@ function showQuestion(index) {
 
   navContainer.appendChild(prevBtn)
   navContainer.appendChild(nextBtn)
-  main.appendChild(navContainer)
+  cont.appendChild(navContainer)
 
   // Add event listeners for radio buttons
   const radioButtons = container.querySelectorAll('input[type="radio"]')
@@ -203,6 +242,16 @@ function submitQuiz() {
   if (userAnswers.some(answer => answer === null)) {
     alert("Please answer all questions before submitting.")
     return
+  }
+
+  const navContainer = document.querySelector('.nav-container')
+  navContainer.style.display = "none";
+
+  const fill = document.querySelector(".progress-bar-fill")
+  if (fill) {
+    requestAnimationFrame(() => {
+      fill.style.width = "100%"
+    })
   }
 
   fetch("/api/quiz/submit", {
@@ -268,45 +317,22 @@ function displayResults(data) {
 function resetQuiz() {
   const container = document.getElementById("quiz-container")
   container.innerHTML = ""
+  document.getElementById("quiz-persistent-header").innerHTML = ""
   currentQuestions = []
   userAnswers = []
-  document.querySelector('.quiz-controls').style.display = "block";
+  document.querySelector('.quiz-configuration').style.display = "block";
 }
 
-// Load categories on page load
+// Load categories and setup event listeners on page load
 document.addEventListener("DOMContentLoaded", function() {
   loadCategories()
-  // Add event listeners for buttons
+
   const startBtn = document.getElementById('start-quiz-btn')
   const resetBtn = document.getElementById('reset-quiz-btn')
-  
-    if (startBtn) startBtn.addEventListener('click', function() {
-        getQuestions()
-        document.querySelector('.quiz-controls').style.display = "none";
-    })
+
+  if (startBtn) startBtn.addEventListener('click', function() {
+    getQuestions()
+    document.querySelector('.quiz-configuration').style.display = "none";
+  })
   if (resetBtn) resetBtn.addEventListener('click', resetQuiz)
 })
-
-// Also call immediately in case DOMContentLoaded has already fired
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
-    loadCategories()
-    // Add event listeners for buttons
-    const startBtn = document.getElementById('start-quiz-btn')
-    const resetBtn = document.getElementById('reset-quiz-btn')
-    
-    if (startBtn) startBtn.addEventListener('click', function() {
-        getQuestions()
-        document.querySelector('.quiz-controls').style.display = "none";
-    })
-    if (resetBtn) resetBtn.addEventListener('click', resetQuiz)
-  })
-} else {
-  loadCategories()
-  // Add event listeners for buttons
-  const startBtn = document.getElementById('start-quiz-btn')
-  const resetBtn = document.getElementById('reset-quiz-btn')
-  
-  if (startBtn) startBtn.addEventListener('click', getQuestions)
-  if (resetBtn) resetBtn.addEventListener('click', resetQuiz)
-}
