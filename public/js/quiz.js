@@ -103,14 +103,9 @@ function showQuestion(index) {
 
     const quizControl = document.createElement("div")
     quizControl.className = "quiz-control"
-    quizControl.style.display = "grid"
-    quizControl.style.gridTemplateColumns = "1fr 1fr 1fr"
-    quizControl.style.justifyContent = "space-between"
-    quizControl.style.alignItems = "center"
-    quizControl.style.color = "#666"
     quizControl.innerHTML = `
         <div style="display: flex; gap: 8px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <button id="quit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
         <p style="text-align: center; font-family: FeatherBold">${progressText}</p>
@@ -119,6 +114,8 @@ function showQuestion(index) {
             <p style="font-family: FeatherBold">1000</p>
         </div>
     `
+
+    quizControl.querySelector('#quit-btn').addEventListener('click', resetQuiz)
 
     const progressPercentage = ((index) / currentQuestions.length) * 100
     const persistentHeader = document.getElementById("quiz-persistent-header")
@@ -321,6 +318,8 @@ function resetQuiz() {
   currentQuestions = []
   userAnswers = []
   document.querySelector('.quiz-configuration').style.display = "block";
+  const navContainer = document.querySelector('.nav-container')
+  navContainer.style.display = "none";
 }
 
 // Load categories and setup event listeners on page load

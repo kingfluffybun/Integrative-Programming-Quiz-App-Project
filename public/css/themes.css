@@ -12,6 +12,10 @@
     filter: saturate(125%);
     }
 
+    @media (max-width: 700px) {
+        .main {background-size: cover;}
+    }
+
     .question {
         background-color: var(--snoopy-container-color);
         border: 2px solid black;
