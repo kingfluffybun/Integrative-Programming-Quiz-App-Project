@@ -1,7 +1,13 @@
 const moreToggle = document.querySelector('.more');
 const moreContent = document.querySelector('.more-content');
 moreToggle.addEventListener("click", function(e) {
-    moreContent.classList.toggle('is-visible');
+    if (!moreContent.contains(e.target) || e.target === moreContent) {
+        moreContent.classList.toggle('is-visible');
+    }
+    e.stopPropagation();
+})
+
+moreContent.addEventListener("click", function(e) {
     e.stopPropagation();
 })
 

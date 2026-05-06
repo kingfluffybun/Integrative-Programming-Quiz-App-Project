@@ -16,4 +16,34 @@ router.get('/quiz', (req, res) => {
   res.render('quiz', { title: 'Quiz - Express Quiz App' })
 })
 
+// Login page
+router.get('/login', (req, res) => {
+  res.render('login', {
+    title: 'Login - Express Quiz App',
+    message: null,
+    errors: [],
+    data: {}
+  })
+})
+
+// Register Page
+router.get('/register', (req, res) => {
+  res.render('register', {
+    title: 'Register - Express Quiz App',
+    message: null,
+    errors: [],
+    data: {}
+  })
+})
+
+// Recovery Page
+router.get('/recovery', (req, res) => {
+  res.render('recovery', {
+    title: 'Recovery - Express Quiz App',
+    message: null,
+    errors: [],
+    data: {}
+  })
+})
+
 module.exports = router
