@@ -175,11 +175,62 @@ body.auth-page {
 	background: #f8fafc;
 	color: #334155;
 	margin-top: 8px;
+	cursor: pointer;
+	transition: background-color 0.2s ease, border-color 0.2s ease;
+	user-select: none;
 }
 
 .form-checkbox input {
-	width: 18px;
-	height: 18px;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	width: 20px;
+	height: 20px;
+	min-width: 20px;
+	min-height: 20px;
+	border: 2px solid #d1d5db;
+	border-radius: 6px;
+	background: #ffffff;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	flex-shrink: 0;
+	position: relative;
+	display: inline-block;
+}
+
+.form-checkbox input:hover {
+	border-color: #dc3546;
+	box-shadow: 0 0 0 3px rgba(220, 53, 70, 0.1);
+}
+
+.form-checkbox input:checked {
+	background: var(--primary-color);
+	border-color: var(--primary-color);
+	box-shadow: 0 0 0 3px rgba(220, 53, 70, 0.1);
+}
+
+.form-checkbox input:checked::after {
+	content: '✓';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 1;
+}
+
+.form-checkbox input:focus-visible {
+	outline: 2px solid var(--primary-color);
+	outline-offset: 2px;
+}
+
+.form-checkbox input:disabled {
+	background: #f3f4f6;
+	border-color: #e5e7eb;
+	cursor: not-allowed;
+	opacity: 0.6;
 }
 
 .btn-primary {
@@ -247,5 +298,21 @@ body.auth-page {
 	.password-toggle svg {
 		width: 24px;
 		height: 24px;
+	}
+
+	.form-checkbox {
+		padding: 12px 14px;
+		gap: 10px;
+	}
+
+	.form-checkbox input {
+		width: 22px;
+		height: 22px;
+		min-width: 22px;
+		min-height: 22px;
+	}
+
+	.form-checkbox input:checked::after {
+		font-size: 15px;
 	}
 }
