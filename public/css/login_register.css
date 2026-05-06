@@ -68,6 +68,60 @@ body.auth-page {
 	position: relative;
 }
 
+
+.password-group .form-input {
+	padding-right: 52px;
+}
+
+.password-toggle {
+	position: absolute;
+	top: 50%;
+	right: 14px;
+	transform: translateY(-50%);
+	border: none;
+	background: transparent;
+	color: #6b7280;
+	cursor: pointer;
+	padding: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+	width: 44px;
+	height: 44px;
+	min-width: 44px;
+	min-height: 44px;
+	outline: none;
+	box-shadow: none;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+.password-toggle svg {
+	width: 22px;
+	height: 22px;
+}
+
+.password-toggle:hover,
+.password-toggle:focus,
+.password-toggle:active {
+	outline: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+	appearance: none;
+}
+
+.toggle-icon.hidden {
+	display: none;
+}
+
+.password-toggle:focus-visible {
+	outline: 2px solid #dc3546;
+	outline-offset: 3px;
+}
+
 .form-label {
 	position: absolute;
 	top: 16px;
