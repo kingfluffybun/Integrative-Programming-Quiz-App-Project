@@ -1,31 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-        <%= title %>
-    </title>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <style>
-      body.auth-page {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background: radial-gradient(circle at top, rgba(220, 53, 70, 0.12) 0%, transparent 36%), #fbfbfd;
-        padding: 20px;
-      }
-
-      .auth-shell {
-        max-width: 700px;
-        width: 100%;
-        background: #ffffff;
-        border-radius: 28px;
-        box-shadow: 0 22px 60px rgba(0, 0, 0, 0.08);
-        padding: 28px 22px;
-        position: relative;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/login_register.css" />
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-header">
+      <h1>Welcome Back</h1>
+      <p>Login with your email or username to continue.</p>
+    </section>
 
       .auth-header {
         text-align: left;
@@ -38,12 +25,21 @@
         letter-spacing: -0.04em;
       }
 
-      .auth-header p {
-        margin: 0;
-        color: #6b7280;
-        line-height: 1.6;
-        font-size: 0.95rem;
-      }
+      <div class="form-group password-group">
+        <input
+          class="form-input"
+          id="password"
+          name="password"
+          type="password"
+          placeholder=" "
+          autocomplete="current-password"
+        />
+        <label class="form-label" for="password">Password</label>
+        <button type="button" class="password-toggle" data-target="password" aria-label="Show password">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon eye-icon hidden"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon eye-off-icon"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+        </button>
+      </div>
 
       .alert {
         margin-bottom: 1rem;
@@ -58,193 +54,11 @@
         border: 1px solid #a7f3d0;
       }
 
-      .alert-error {
-        color: #7f1d1d;
-        background: #fee2e2;
-        border: 1px solid #fca5a5;
-        padding: 16px 20px;
-      }
-
-      .auth-form {
-        display: grid;
-        gap: 2px;
-        background: #ffffff;
-        border-radius: 20px;
-        padding: 24px;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-      }
-
-      .alert-error {
-        padding: 16px 20px;
-      }
-
-      .form-group {
-        position: relative;
-      }
-
-      .form-label {
-        position: absolute;
-        top: 16px;
-        left: 18px;
-        font-size: 1rem;
-        color: #9ca3af;
-        pointer-events: none;
-        transition: all 0.2s ease;
-        background: #ffffff;
-        padding: 0 4px;
-      }
-
-      .form-input {
-        width: 100%;
-        border-radius: 18px;
-        border: 1px solid #d1d5db;
-        padding: 16px 18px;
-        font-size: 1rem;
-        color: #111827;
-        background: #f8fafc;
-        transition: border-color 0.2s ease;
-      }
-
-      .form-input:focus {
-        outline: none;
-        border-color: #dc3546;
-        box-shadow: 0 0 0 4px rgba(220, 53, 70, 0.12);
-      }
-
-      .form-input:focus + .form-label,
-      .form-input:not(:placeholder-shown) + .form-label {
-        top: -8px;
-        left: 14px;
-        font-size: 0.85rem;
-        color: #dc3546;
-      }
-
-      .form-checkbox {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 14px 16px;
-        border-radius: 18px;
-        border: 1px solid #d1d5db;
-        background: #f8fafc;
-        color: #334155;
-        margin-top: 8px;
-      }
-
-      .form-checkbox input {
-        width: 18px;
-        height: 18px;
-      }
-
-      .btn-primary {
-        width: 100%;
-        border-radius: 18px;
-        padding: 16px;
-        background: var(--primary-color);
-        color: #ffffff;
-        font-size: 1rem;
-        font-weight: 700;
-        transition: transform 0.2s ease, background-color 0.2s ease;
-        border: none;
-        cursor: pointer;
-        margin-top: 16px;
-      }
-
-      .btn-primary:hover,
-      .btn-primary:focus {
-        background: #b02a37;
-        transform: translateY(-1px);
-      }
-
-      .auth-footer {
-        margin-top: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-      }
-
-      .auth-link {
-        color: var(--primary-color);
-        font-size: 0.95rem;
-        text-decoration: none;
-      }
-
-      .auth-link:hover,
-      .auth-link:focus {
-        text-decoration: underline;
-      }
-
-      @media (max-width: 420px) {
-        body.auth-page {
-          padding: 16px;
-        }
-
-        .auth-shell {
-          padding: 24px 18px;
-          border-radius: 24px;
-        }
-      }
-    </style>
-  </head>
-  <body class="auth-page">
-    <main class="auth-shell">
-      <section class="auth-header">
-        <h1>Welcome Back</h1>
-        <p>Login with your email or username to continue.</p>
-      </section>
-
-      <% if (message) { %>
-        <div class="alert alert-success"><%= message %></div>
-      <% } %>
-      <% if (errors && errors.length) { %>
-        <div class="alert alert-error">
-          <ul>
-            <% errors.forEach((error) => { %>
-              <li><%= error.msg %></li>
-            <% }) %>
-          </ul>
-        </div>
-      <% } %>
-
-      <form class="auth-form" action="/auth/login" method="POST" novalidate>
-        <div class="form-group">
-          <input
-            class="form-input"
-            id="identifier"
-            name="identifier"
-            type="text"
-            placeholder=" "
-            value="<%= data.identifier || '' %>"
-            autocomplete="username"
-          />
-          <label class="form-label" for="identifier">Email or Username</label>
-        </div>
-
-        <div class="form-group">
-          <input
-            class="form-input"
-            id="password"
-            name="password"
-            type="password"
-            placeholder=" "
-            autocomplete="current-password"
-          />
-          <label class="form-label" for="password">Password</label>
-        </div>
-
-        <label class="form-checkbox">
-          <input type="checkbox" name="remember" <%= data.remember ? 'checked' : '' %> />
-          <span>Remember me</span>
-        </label>
-
-        <button type="submit" class="btn-primary">Login</button>
-      </form>
-
-      <footer class="auth-footer">
-        <a class="auth-link" href="/register">Create account</a>
-        <a class="auth-link" href="/recovery">Forgot password?</a>
-      </footer>
-    </main>
-  </body>
+    <footer class="auth-footer">
+      <a class="auth-link" href="/register">Create account</a>
+      <a class="auth-link" href="/recovery">Forgot password?</a>
+    </footer>
+  </main>
+  <script src="/js/auth.js"></script>
+</body>
 </html>
