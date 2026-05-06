@@ -70,19 +70,20 @@ body.auth-page {
 
 
 .password-group .form-input {
-	padding-right: 52px;
+	padding-right: 56px;
+	pointer-events: auto;
 }
 
 .password-toggle {
 	position: absolute;
 	top: 50%;
-	right: 14px;
+	right: 8px;
 	transform: translateY(-50%);
 	border: none;
 	background: transparent;
 	color: #6b7280;
 	cursor: pointer;
-	padding: 0;
+	padding: 8px;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -96,6 +97,11 @@ body.auth-page {
 	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
+	z-index: 10;
+	pointer-events: auto;
+	-webkit-touch-callout: none;
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 .password-toggle svg {
@@ -223,5 +229,23 @@ body.auth-page {
 	.auth-shell {
 		padding: 24px 18px;
 		border-radius: 24px;
+	}
+
+	.password-toggle {
+		right: 6px;
+		padding: 10px;
+		width: 48px;
+		height: 48px;
+		min-width: 48px;
+		min-height: 48px;
+	}
+
+	.password-group .form-input {
+		padding-right: 60px;
+	}
+
+	.password-toggle svg {
+		width: 24px;
+		height: 24px;
 	}
 }

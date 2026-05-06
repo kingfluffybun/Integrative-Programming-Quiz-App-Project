@@ -11,12 +11,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const keepFocus = function (event) {
       event.preventDefault();
+      event.stopPropagation();
     };
-    toggle.addEventListener('mousedown', keepFocus);
-    toggle.addEventListener('touchstart', keepFocus);
+    toggle.addEventListener('mousedown', keepFocus, { passive: false });
+    toggle.addEventListener('touchstart', keepFocus, { passive: false });
+    toggle.addEventListener('touchend', keepFocus, { passive: false });
 
-    toggle.addEventListener('click', function (event) {
+    const handleToggle = function (event) {
       event.preventDefault();
+      event.stopPropagation();
       const selectionStart = input.selectionStart;
       const selectionEnd = input.selectionEnd;
       const isHidden = input.type === 'password';
@@ -36,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
       toggle.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
-    });
+    };
+
+    toggle.addEventListener('click', handleToggle);
+    toggle.addEventListener('touchend', handleToggle);
   });
 });
