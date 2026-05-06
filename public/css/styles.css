@@ -95,6 +95,7 @@ nav .bottom {
     border-radius: 12px;
     gap: 4px;
     transition: opacity 250ms, display 250ms allow-discrete;
+    z-index: 100;
 }
 
 .is-visible {

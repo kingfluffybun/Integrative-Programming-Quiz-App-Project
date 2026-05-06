@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/login_register.css" />
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-header">
+      <h1>Password Recovery</h1>
+      <p>Enter your email and we’ll send reset instructions.</p>
+    </section>
+
+    <% if (message) { %>
+      <div class="alert alert-success"><%= message %></div>
+    <% } %>
+    <% if (errors && errors.length) { %>
+      <div class="alert alert-error">
+        <ul>
+          <% errors.forEach((error) => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form class="auth-form" action="/recovery" method="POST" novalidate>
+      <div class="form-group">
+        <input
+          class="form-input"
+          id="email"
+          name="email"
+          type="email"
+          placeholder=" "
+          value="<%= data.email || '' %>"
+          autocomplete="email"
+        />
+        <label class="form-label" for="email">Email</label>
+      </div>
+
+      <button type="submit" class="btn-primary">Send Reset Link</button>
+    </form>
+
+    <footer class="auth-footer">
+      <a class="auth-link" href="/login">Back to login</a>
+    </footer>
+  </main>
+</body>
+</html>

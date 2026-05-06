@@ -3,8 +3,11 @@ const express = require('express')
 const morgan = require('morgan')
 const helmet = require('helmet')
 const cors = require('cors')
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 const quizRoutes = require('./routes/quiz')
 const pagesRoutes = require('./routes/pages')
+const authRoutes = require('./routes/auth')
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -21,7 +24,33 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
+// Session configuration
+const sessionStore = new MySQLStore({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
+
+app.use(session({
+    key: 'quiz_app_session',
+    secret: process.env.SESSION_SECRET || 'secret',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // 1 day
+    }
+}));
+
+// Make user info available in all templates
+app.use((req, res, next) => {
+    res.locals.user = req.session.userId ? { id: req.session.userId, username: req.session.username } : null;
+    next();
+});
+
 // Routes
+app.use('/auth', authRoutes)
 app.use('/api/quiz', quizRoutes)
 app.use('/', pagesRoutes)
 
