@@ -18,7 +18,7 @@ body.auth-page {
 }
 
 .auth-header {
-	text-align: left;
+	text-align: center;
 	margin-bottom: 32px;
 }
 
@@ -136,7 +136,8 @@ body.auth-page {
 	color: #9ca3af;
 	pointer-events: none;
 	transition: all 0.2s ease;
-	background: #ffffff;
+	background: #f8fafc;
+    border-radius: 12px;
 	padding: 0 4px;
 }
 
@@ -254,7 +255,6 @@ body.auth-page {
 }
 
 .auth-footer {
-	margin-top: 24px;
 	display: flex;
 	flex-direction: column;
 	gap: 12px;

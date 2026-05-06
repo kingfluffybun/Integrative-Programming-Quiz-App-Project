@@ -19,7 +19,8 @@ router.get('/quiz', (req, res) => {
 // Shop page
 router.get('/shop', (req, res) => {
   res.render('shop', { title: 'Quiz - Express Quiz App' })
-  
+})
+
 // Login page
 router.get('/login', (req, res) => {
   res.render('login', {

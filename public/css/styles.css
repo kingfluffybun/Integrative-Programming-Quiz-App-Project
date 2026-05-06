@@ -207,10 +207,6 @@ input[type=radio]:checked + .num-question-content .circle {
     color: var(--primary-color);
 }
 
-.num-question {
-
-}
-
 /* QUIZ UI */
 
 #quiz-container {
@@ -291,19 +287,22 @@ input[type=radio]:checked + .num-question-content .circle {
 .quiz-configuration {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 4px;
     padding: 24px;
     background-color: white;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.08), 0px 12px 24px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.08), 0px 12px 24px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
 }
 
 .form-group {
   margin: 10px 0;
-  margin-right: 15px;
-  display: grid; 
-  grid-template-columns: 1fr 1fr; 
-  gap: 8px;
-  h2 {grid-column: span 2; margin-bottom: 4px;}
+}
+
+.quiz-configuration .form-group {
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 8px;
+    h2 {grid-column: span 2; margin-bottom: 4px; font-size: 20px;}
 }
 
 label {
@@ -366,11 +365,9 @@ button:hover {
 
 .question-info {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 12px;
+    left: 12px;
   display: flex;
-  gap: 20px;
-  margin-bottom: 15px;
   font-size: 14px;
   color: #666;
 }
