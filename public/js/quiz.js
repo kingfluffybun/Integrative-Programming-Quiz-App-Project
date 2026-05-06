@@ -29,9 +29,11 @@ async function loadCategories() {
 }
 
 async function getQuestions() {
-  const amount = document.getElementById("amount").value
+    const selectedAmount = document.querySelector('input[name="length"]:checked');
+    const selectedDifficulty = document.querySelector('input[name="difficulty"]:checked');
+  const amount = parseInt(selectedAmount.value);
   const category = 32;
-  const difficulty = document.getElementById("difficulty").value
+  const difficulty = selectedDifficulty.value
 
   const container = document.getElementById("quiz-container")
   container.innerHTML = '<div class="loading"><div class="spinner"></div><div class="loading-text">Fetching questions from OpenTDB...</div></div>'
@@ -159,12 +161,15 @@ function showQuestion(index) {
             fill.style.width = `${progressPercentage}%`
         })
         
-        questionDiv.innerHTML = `<h2>${decodeHtml(question.question)}</h2>`
-        // <div class="question-info">
-        //     <span><strong>Category:</strong> ${question.category}</span>
-        //     <span><strong>Difficulty:</strong> ${question.difficulty}</span>
-        //     <span><strong>Type:</strong> ${question.type}</span>
-        // </div>
+        const currentDifficulty = question.difficulty
+        const displayDifficulty = currentDifficulty.charAt(0).toUpperCase() + currentDifficulty.slice(1)
+        questionDiv.innerHTML = `<h2>${decodeHtml(question.question)}</h2>
+        <div class="question-info">
+            <span><strong>Difficulty:</strong> ${displayDifficulty}</span>
+        </div>`
+
+        // <span><strong>Category:</strong> ${question.category}</span>
+        // <span><strong>Type:</strong> ${question.type}</span>
 
         const answers = document.createElement("div")
         answers.classList.add("answers")
@@ -357,6 +362,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (startBtn) startBtn.addEventListener('click', function() {
     getQuestions()
     document.querySelector('.quiz-configuration').style.display = "none";
+    document.querySelector('.quiz-container').style.display = "flex";
   })
   if (resetBtn) resetBtn.addEventListener('click', resetQuiz)
 })

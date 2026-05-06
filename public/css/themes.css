@@ -6,16 +6,19 @@
     --spongebob-option-color: #FEF76C;
     --powerpuff-girls-option-color: #EF6565;
     --powerpuff-girls-container-color: #D11560;
+    --we-bare-bears-container-color: #302622;
 }
 
 @media (max-width: 700px) {
     .main {background-size: cover !important;}
 }
 
-.snoopy {    
+.snoopy {
     .main {
     /* linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),  */
+    background-color: var(--snoopy-container-color);
     background-image:url(../wallpapers/snoopy.jpg);
+    background-size: 562px auto;
     background-repeat: no-repeat;
     background-position: bottom;
     filter: saturate(125%);
@@ -56,9 +59,10 @@
     }
 }
 
-.adventure-time {    
+.adventure-time {     
     .main {
     background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url(../wallpapers/adventuretime.jpg);
+    background-color: var(--adventure-time-container-color);
     background-size: 562px auto;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -107,6 +111,7 @@
 
 .spongebob {    
     .main {
+    background-color: var(--spongebob-container-color);
     background-image: url(../wallpapers/spongebob.jpg);
     background-size: 562px auto;
     background-repeat: no-repeat;
@@ -159,6 +164,8 @@
 
 .powerpuff-girls {    
     .main {
+    background-color: var(--powerpuff-girls-container-color);
+    filter: saturate(125%);
     background-image: linear-gradient(rgba(0, 0, 0, 0.075), rgba(0, 0, 0, 0.075)), url(../wallpapers/powerpuff-girls.jpg);
     background-size: 562px auto;
     background-repeat: no-repeat;
@@ -204,5 +211,51 @@
 
     .quiz-control {
         color: var(--powerpuff-girls-container-color) !important;
+    }
+}
+
+.webarebears {
+    .main {
+    /* linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),  */
+    background-color: var(--we-bare-bears-container-color);
+    background-image:url(../wallpapers/webarebears.jpg);
+    background-size: 562px auto;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    filter: saturate(125%);
+    }
+
+    .question {
+        background-color: var(--snoopy-container-color);
+        border: 2px solid black;
+    }
+
+    .answer-option-content {
+        background-color: #fff8e8 ;
+        border-width: 2px 2px 4px 2px;
+        border-style: solid;
+        border-color: black;
+        p {font-weight: 650;}
+    }
+
+    .answer-option:hover .answer-option-content {
+        background-color: #D4956A;
+    }
+
+    .answer-option:active .answer-option-content {
+        border-bottom: 2px solid black;
+        background-color: #A96B22;
+        color: white;
+    }
+
+    input[type="radio"]:checked + .answer-option-content {
+        background-color: #A96B22;
+        color: white;
+    }
+
+    .nextBtn, .prevBtn {
+        background-color: var(--snoopy-container-color);
+        color: #333;
+        font-weight: 700;
     }
 }
