@@ -51,4 +51,12 @@ router.get('/recovery', (req, res) => {
   })
 })
 
+// Profile Page
+router.get('/profile', (req, res) => {
+  res.render('profile', { 
+    title: 'Profile - Express Quiz App',
+    user: req.session.userId ? { username: 'TestProfile' } : null 
+  })
+})
+
 module.exports = router
