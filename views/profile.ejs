@@ -31,7 +31,7 @@
             <div class="bottom">
                 <a href="/">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-user-icon lucide-circle-user"> <circle cx="12" cy="12" r="10" /> <circle cx="12" cy="10" r="3" /> <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" /> </svg>
-                    <p>Profile</p>
+                    <p><%= user ? user.username : 'Profile' %></p>
                 </a>
                 <div class="more">
                     <div class="more-icon">
@@ -68,9 +68,9 @@
                 </svg>
             </div>
             <div class="profile-info">
-                <h2>TestProfile</h2>
-                <p class="profile-email">TestProfile@gmail.com</p>
-                <p class="profile-member">Member since May 7, 2026</p>
+                <h2><%= user.username %></h2>
+                <p class="profile-email"><%= user.email %></p>
+                <p class="profile-member">Member since <%= user.memberSince %></p>
             </div>
             <div class="edit-button-container">
                 <button class="btn-primary btn-edit" id="editProfileBtn">
@@ -123,7 +123,7 @@
                     <div class="profile-form-group">
                         <label>Full Name</label>
                         <div class="profile-input-wrapper">
-                            <input type="text" value="TestProfile" class="profile-input" data-field="fullName">
+                            <input type="text" value="<%= user.username %>" class="profile-input" data-field="fullName">
                             <button class="btn-small btn-save-profile" data-field="fullName">Save</button>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                     <div class="profile-form-group">
                         <label>Email Address</label>
                         <div class="profile-input-wrapper">
-                            <input type="email" value="TestProfile@gmail.com" class="profile-input" data-field="email">
+                            <input type="email" value="<%= user.email %>" class="profile-input" data-field="email">
                             <button class="btn-small btn-save-profile" data-field="email">Save</button>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                     <div class="profile-form-group">
                         <label>Date Joined</label>
                         <div class="profile-input-wrapper">
-                            <input type="text" value="May 7, 2026" readonly class="profile-input">
+                            <input type="text" value="<%= user.memberSince %>" readonly class="profile-input">
                             <button class="btn-small" disabled>View</button>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                             </svg>
                         </div>
                         <h5>Overall Average</h5>
-                        <p class="stat-value">82%</p>
+                        <p class="stat-value"><%= stats.avgScore %>%</p>
                         <p class="stat-detail">All Quizzes</p>
                     </div>
 
@@ -257,7 +257,7 @@
                             </svg>
                         </div>
                         <h5>Quizzes Taken</h5>
-                        <p class="stat-value">24</p>
+                        <p class="stat-value"><%= stats.totalQuizzes %></p>
                         <p class="stat-detail">Total Attempts</p>
                     </div>
 
@@ -269,7 +269,7 @@
                             </svg>
                         </div>
                         <h5>Highest Score</h5>
-                        <p class="stat-value">98%</p>
+                        <p class="stat-value"><%= stats.highestScore %>%</p>
                         <p class="stat-detail">Best Quiz</p>
                     </div>
 
@@ -280,7 +280,7 @@
                             </svg>
                         </div>
                         <h5>Current Streak</h5>
-                        <p class="stat-value">7</p>
+                        <p class="stat-value"><%= stats.streak %></p>
                         <p class="stat-detail">Days</p>
                     </div>
                 </div>
@@ -289,46 +289,39 @@
                 <div class="score-section">
                     <h4>Recent Scores</h4>
                     <div class="recent-scores">
-                        <div class="recent-item">
-                            <div class="recent-left">
-                                <p class="recent-quiz">Normal + Medium</p>
-                                <p class="recent-time">Today, 2:30 PM • 5 minutes</p>
-                            </div>
-                            <div class="recent-right">
-                                <p class="recent-score">95%</p>
-                                <p class="recent-detail">9/10 correct</p>
-                            </div>
-                        </div>
-                        <div class="recent-item">
-                            <div class="recent-left">
-                                <p class="recent-quiz">Short + Easy</p>
-                                <p class="recent-time">Yesterday • 3 minutes</p>
-                            </div>
-                            <div class="recent-right">
-                                <p class="recent-score">88%</p>
-                                <p class="recent-detail">4/5 correct</p>
-                            </div>
-                        </div>
-                        <div class="recent-item">
-                            <div class="recent-left">
-                                <p class="recent-quiz">Long + Hard</p>
-                                <p class="recent-time">2 days ago • 12 minutes</p>
-                            </div>
-                            <div class="recent-right">
-                                <p class="recent-score">72%</p>
-                                <p class="recent-detail">11/15 correct</p>
-                            </div>
-                        </div>
-                        <div class="recent-item">
-                            <div class="recent-left">
-                                <p class="recent-quiz">Epic + Medium</p>
-                                <p class="recent-time">3 days ago • 18 minutes</p>
-                            </div>
-                            <div class="recent-right">
-                                <p class="recent-score">91%</p>
-                                <p class="recent-detail">18/20 correct</p>
-                            </div>
-                        </div>
+                        <% if (scores.length > 0) { %>
+                            <% scores.forEach(score => { %>
+                                <div class="recent-item">
+                                    <div class="recent-left">
+                                        <% 
+                                            let quizLabel = '';
+                                            const qCount = score.total_questions;
+                                            const diff = (score.difficulty || 'mixed').toLowerCase();
+
+                                            const diffFormat = diff.charAt(0).toUpperCase() + diff.slice(1);
+                                            
+                                            if (qCount === 5) quizLabel = 'Short';
+                                            else if (qCount === 10) quizLabel = 'Normal';
+                                            else if (qCount === 20) quizLabel = 'Long';
+                                            else if (qCount >= 40) quizLabel = 'Epic';
+                                            else quizLabel = 'Custom';
+
+                                            if (quizLabel !== 'epic' && quizLabel !== 'custom') {
+                                                quizLabel += ' - ' + diffFormat;
+                                            }
+                                        %>
+                                        <p class="recent-quiz"><%= quizLabel %></p>
+                                        <p class="recent-time"><%= score.taken_at.toLocaleString() %></p>
+                                    </div>
+                                    <div class="recent-right">
+                                        <p class="recent-score"><%= score.score %>%</p>
+                                        <p class="recent-detail"><%= score.correct_answers %>/<%= score.total_questions %> correct</p>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>No quiz scores found. Take a quiz to see your results!</p>
+                        <% } %>
                     </div>
                 </div>
             </div>

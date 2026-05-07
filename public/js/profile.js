@@ -81,7 +81,7 @@ function setupSettingsToggles() {
 }
 
 function setupProfileUpdates() {
-    document.addEventListener('click', function (e) {
+    document.addEventListener('click', async function (e) {
         if (e.target.classList.contains('btn-save-profile')) {
             const profileFormGroup = e.target.closest('.profile-form-group');
             
@@ -89,6 +89,40 @@ function setupProfileUpdates() {
                 const input = profileFormGroup.querySelector('.profile-input');
                 const field = e.target.getAttribute('data-field');
                 const value = input.value;
+                const originalText = e.target.textContent;
+
+                try {
+                    e.target.disabled = true;
+                    e.target.textContent = 'Saving...';
+
+                    const response = await fetch('/profile/update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ field, value })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        alert('Profile updated successfully!');
+                        if (field === 'fullName') {
+                            const headerUsername = document.querySelector('.bottom a p');
+                            const profileHeaderName = document.querySelector('.profile-info h2');
+                            if (headerUsername) headerUsername.textContent = value;
+                            if (profileHeaderName) profileHeaderName.textContent = value;
+                        }
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                } catch (error) {
+                    console.error('Update error:', error);
+                    alert('An error occurred while saving.');
+                } finally {
+                    e.target.disabled = false;
+                    e.target.textContent = originalText;
+                }
             }
         }
     });

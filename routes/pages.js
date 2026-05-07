@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { getProfile, updateProfile } = require('../controllers/profileController')
 
 // Home page (static info about the app using OpenTDB)
 router.get('/', (req, res) => {
@@ -52,11 +53,7 @@ router.get('/recovery', (req, res) => {
 })
 
 // Profile Page
-router.get('/profile', (req, res) => {
-  res.render('profile', { 
-    title: 'Profile - Express Quiz App',
-    user: req.session.userId ? { username: 'TestProfile' } : null 
-  })
-})
+router.get('/profile', getProfile)
+router.post('/profile/update', updateProfile)
 
 module.exports = router

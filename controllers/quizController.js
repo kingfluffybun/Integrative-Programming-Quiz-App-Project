@@ -126,6 +126,22 @@ const submitQuiz = async (req, res) => {
 
         const score = Math.round((correct / questions.length) * 100)
 
+        // Save score to database if user is logged in
+        if (req.session.userId) {
+            try {
+                const db = require('../database/connection');
+                const category = questions[0].category || 'Mixed';
+                const difficulty = questions[0].difficulty || 'Mixed';
+
+                await db.query(
+                    'INSERT INTO scores (user_id, score, category, difficulty, total_questions, correct_answers) VALUES (?, ?, ?, ?, ?, ?)',
+                    [req.session.userId, score, category, difficulty, questions.length, correct]
+                );
+            } catch (dbError) {
+                console.error('Error saving score to database:', dbError);
+            }
+        }
+
         res.json({
             success: true,
             score,

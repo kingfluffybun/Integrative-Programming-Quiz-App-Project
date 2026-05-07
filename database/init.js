@@ -12,7 +12,22 @@ async function initDB() {
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
-        console.log('Database initialized: "users" table is ready.');
+
+        // Create scores table
+        await db.query(`
+            CREATE TABLE IF NOT EXISTS scores (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                score INT NOT NULL,
+                category VARCHAR(100),
+                difficulty VARCHAR(50),
+                total_questions INT NOT NULL,
+                correct_answers INT NOT NULL,
+                taken_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            )
+        `);
+        console.log('Database initialized');
         process.exit(0);
     } catch (error) {
         console.error('Error initializing database:', error);
