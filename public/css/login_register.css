@@ -246,6 +246,7 @@ body.auth-page {
 	border: none;
 	cursor: pointer;
 	margin-top: 16px;
+	outline: none;
 }
 
 .btn-primary:hover,

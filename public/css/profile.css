@@ -134,7 +134,7 @@
     display: flex;
     gap: 12px;
     border-bottom: 2px solid #e0e0e0;
-    overflow-x: auto;
+    overflow-x: visible;
     padding-bottom: 0;
     user-select: none;
 }
@@ -898,8 +898,7 @@
 
     .profile-nav-tabs {
         gap: 8px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow-x: visible;
     }
 
     .nav-tab {
