@@ -48,7 +48,8 @@ router.get('/recovery', (req, res) => {
     title: 'Recovery - Express Quiz App',
     message: null,
     errors: [],
-    data: {}
+    data: {},
+    step: 1
   })
 })
 

@@ -9,15 +9,10 @@
 </head>
 <body class="auth-page">
   <main class="auth-shell">
-    <section class="auth-header">
-      <h1>Password Recovery</h1>
-      <p>Enter your email and we’ll send reset instructions.</p>
-    </section>
-
-    <% if (message) { %>
+    <% if (typeof message !== 'undefined' && message) { %>
       <div class="alert alert-success"><%= message %></div>
     <% } %>
-    <% if (errors && errors.length) { %>
+    <% if (typeof errors !== 'undefined' && errors && errors.length) { %>
       <div class="alert alert-error">
         <ul>
           <% errors.forEach((error) => { %>
@@ -26,23 +21,97 @@
         </ul>
       </div>
     <% } %>
+    <% if (step === 1) { %>
+      <section class="auth-header">
+        <h1>Password Recovery</h1>
+        <p>Enter your email and we’ll send you a 6-digit OTP.</p>
+      </section>
 
-    <form class="auth-form" action="/recovery" method="POST" novalidate>
-      <div class="form-group">
-        <input
-          class="form-input"
-          id="email"
-          name="email"
-          type="email"
-          placeholder=" "
-          value="<%= data.email || '' %>"
-          autocomplete="email"
-        />
-        <label class="form-label" for="email">Email</label>
+      <form class="auth-form" action="/auth/recovery/request" method="POST" novalidate>
+        <div class="form-group">
+          <input
+            class="form-input"
+            id="email"
+            name="email"
+            type="email"
+            placeholder=" "
+            value="<%= data.email || '' %>"
+            required
+          />
+          <label class="form-label" for="email">Email</label>
+        </div>
+        <button type="submit" class="btn-primary">Send OTP</button>
+      </form>
+    <% } else if (step === 2) { %>
+      <section class="auth-header">
+        <h1>Verify OTP</h1>
+        <p>Enter the 6-digit code sent to <strong><%= data.email %></strong></p>
+      </section>
+
+      <form class="auth-form" action="/auth/recovery/verify" method="POST" novalidate>
+        <input type="hidden" name="email" value="<%= data.email %>" />
+        <div class="form-group">
+          <input
+            class="form-input"
+            id="otp"
+            name="otp"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            placeholder=" "
+            maxlength="6"
+            required
+            autofocus
+          />
+          <label class="form-label" for="otp">6-Digit OTP</label>
+        </div>
+        <button type="submit" class="btn-primary">Verify Code</button>
+      </form>
+      <div style="text-align: center; margin-top: 1rem;">
+        <form action="/auth/recovery/request" method="POST" style="display: inline;">
+          <input type="hidden" name="email" value="<%= data.email %>" />
+          <button type="submit" class="auth-link" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer; text-decoration: underline;">Resend OTP</button>
+        </form>
       </div>
+    <% } else if (step === 3) { %>
+      <section class="auth-header">
+        <h1>Reset Password</h1>
+        <p>Create a new secure password for your account.</p>
+      </section>
 
-      <button type="submit" class="btn-primary">Send Reset Link</button>
-    </form>
+      <form class="auth-form" action="/auth/recovery/reset" method="POST" novalidate>
+        <input type="hidden" name="email" value="<%= data.email %>" />
+        <input type="hidden" name="otp" value="<%= data.otp %>" />
+        
+        <div class="form-group">
+          <input
+            class="form-input"
+            id="password"
+            name="password"
+            type="password"
+            placeholder=" "
+            required
+            autocomplete="new-password"
+          />
+          <label class="form-label" for="password">New Password</label>
+        </div>
+
+        <div class="form-group">
+          <input
+            class="form-input"
+            id="confirm_password"
+            name="confirm_password"
+            type="password"
+            placeholder=" "
+            required
+            autocomplete="new-password"
+          />
+          <label class="form-label" for="confirm_password">Confirm New Password</label>
+        </div>
+
+        <button type="submit" class="btn-primary">Reset Password</button>
+      </form>
+    <% } %>
 
     <footer class="auth-footer">
       <a class="auth-link" href="/login">Back to login</a>

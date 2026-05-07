@@ -1,6 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 const { login, register, logout } = require('../controllers/authController');
+const { sendOTP, verifyOTP, resetPassword } = require('../controllers/recoveryController');
 
 const router = express.Router();
 
@@ -25,5 +26,22 @@ router.post('/login', [
 
 // Logout route
 router.get('/logout', logout);
+
+// Recovery routes
+router.post('/recovery/request', [
+    body('email').isEmail().withMessage('Please provide a valid email')
+], sendOTP);
+
+router.post('/recovery/verify', verifyOTP);
+
+router.post('/recovery/reset', [
+    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+    body('confirm_password').custom((value, { req }) => {
+        if (value !== req.body.password) {
+            throw new Error('Passwords do not match');
+        }
+        return true;
+    })
+], resetPassword);
 
 module.exports = router;

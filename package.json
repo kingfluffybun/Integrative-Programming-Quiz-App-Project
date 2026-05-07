@@ -21,7 +21,8 @@
     "helmet": "^7.1.0",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
-    "mysql2": "^3.22.3"
+    "mysql2": "^3.22.3",
+    "nodemailer": "^8.0.7"
   },
   "devDependencies": {
     "jest": "^29.7.0",
