@@ -37,44 +37,48 @@ async function loadCategories() {
 }
 
 async function getQuestions() {
-    
     const selectedAmount = document.querySelector('input[name="length"]:checked');
     const selectedDifficulty = document.querySelector('input[name="difficulty"]:checked');
-  const amount = parseInt(selectedAmount.value);
-  const category = 32;
-  const difficulty = selectedDifficulty.value
-
-  const container = document.getElementById("quiz-container")
-  container.style.display = "flex"
-  container.innerHTML = '<div class="loading"><div class="spinner"></div><div class="loading-text">Fetching questions from OpenTDB...</div></div>'
-
-  // Disable the start button during loading
-  const startButton = document.querySelector('button[onclick="getQuestions()"]')
-  if (startButton) startButton.disabled = true
-
-  try {
-    let url = `/api/quiz/questions?amount=${amount}`
-    if (category) url += `&category=${category}`
-    if (difficulty) url += `&difficulty=${difficulty}`
-
-    const response = await fetch(url)
-    const data = await response.json()
-
-    if (data.success) {
-      currentQuestions = data.results
-      userAnswers = new Array(data.results.length).fill(null)
-      displayQuestions(data.results)
-    } else {
-      container.innerHTML = `<div class="error">Error: ${data.error}</div>`
+    
+    if (!selectedAmount || !selectedDifficulty) {
+        return;
     }
-  } catch (error) {
-    console.error("Error fetching questions:", error)
-    container.innerHTML =
-      '<div class="error">Failed to load questions. Please try again.</div>'
-  } finally {
-    // Re-enable the start button after loading completes
-    if (startButton) startButton.disabled = false
-  }
+
+    const amount = parseInt(selectedAmount.value);
+    const category = 32;
+    const difficulty = selectedDifficulty.value
+
+    const container = document.getElementById("quiz-container")
+    container.style.display = "flex"
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><div class="loading-text">Fetching questions from OpenTDB...</div></div>'
+
+    // Disable the start button during loading
+    const startButton = document.getElementById("start-quiz-btn")
+    if (startButton) startButton.disabled = true
+
+    try {
+        let url = `/api/quiz/questions?amount=${amount}`
+        if (category) url += `&category=${category}`
+        if (difficulty) url += `&difficulty=${difficulty}`
+
+        const response = await fetch(url)
+        const data = await response.json()
+
+        if (data.success) {
+            currentQuestions = data.results
+            userAnswers = new Array(data.results.length).fill(null)
+            displayQuestions(data.results)
+        } else {
+            container.innerHTML = `<div class="error">Error: ${data.error}</div>`
+        }
+    } catch (error) {
+        console.error("Error fetching questions:", error)
+        container.innerHTML =
+            '<div class="error">Failed to load questions. Please try again.</div>'
+    } finally {
+        // Re-enable the start button after loading completes
+        if (startButton) startButton.disabled = false
+    }
 }
 
 function displayQuestions(questions) {
@@ -521,13 +525,57 @@ function resetQuiz() {
 document.addEventListener("DOMContentLoaded", function() {
   loadCategories()
 
+  const length = document.querySelectorAll('input[name="length"]');
+  const difficulty = document.querySelectorAll('input[name="difficulty"]');
+  const anyDifficulty = document.querySelector('input[name="difficulty"][value=""]');
+
   const startBtn = document.getElementById('start-quiz-btn')
   const resetBtn = document.getElementById('reset-quiz-btn')
 
+  length.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if (this.value === '40') {
+        // Epic selected: auto-select "Any" and disable others
+        if (anyDifficulty) anyDifficulty.checked = true;
+        difficulty.forEach(diff => {
+          if (diff.value !== '') {
+            diff.disabled = true;
+            const parent = diff.closest('.num-question');
+            if (parent) {
+                parent.style.opacity = '0.5';
+                parent.style.pointerEvents = 'none';
+            }
+          }
+        });
+      } else {
+        // Other length selected: re-enable all difficulties
+        difficulty.forEach(diff => {
+          diff.disabled = false;
+          const parent = diff.closest('.num-question');
+          if (parent) {
+              parent.style.opacity = '1';
+              parent.style.pointerEvents = 'auto';
+          }
+        });
+      }
+    });
+  });
+
   if (startBtn) startBtn.addEventListener('click', function() {
+    const selectedAmount = document.querySelector('input[name="length"]:checked');
+    const selectedDifficulty = document.querySelector('input[name="difficulty"]:checked');
+    const container = document.querySelector(".errorSelect")
+
+    if (!selectedAmount || !selectedDifficulty) {
+        container.innerHTML = '<div class="error">Must select both quiz length and difficulty!</div>';
+        return;
+    } else {
+        container.innerHTML = '';
+    }
+
     getQuestions()
     document.querySelector('.quiz-configuration').style.display = "none";
-    document.querySelector('.quiz-container').style.display = "flex";
+    document.querySelector('.errorSelect').style.display = "none";
   })
   if (resetBtn) resetBtn.addEventListener('click', resetQuiz)
 })

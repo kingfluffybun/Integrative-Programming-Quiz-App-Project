@@ -21,11 +21,16 @@ document.addEventListener("DOMContentLoaded", function(showMenu) {
     const currentPath = window.location.pathname;
     const isHome = currentPath.includes('/')
     const isQuiz = currentPath.includes('/quiz')
+    const isShop = currentPath.includes('/shop')
+    const isProfile = currentPath.includes('/profile')
 
     if (isQuiz) {
         document.getElementById('quiz').classList.add('active-page')
-    } else if (isHome) {
+    } else if (isShop) {
+        document.getElementById('shop').classList.add('active-page')
+    } else if (isProfile) {
+        document.getElementById('profile').classList.add('active-page')
+    }else if (isHome) {
         document.getElementById('home').classList.add('active-page')
     }
 });
-
