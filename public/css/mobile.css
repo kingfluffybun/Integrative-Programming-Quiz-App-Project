@@ -1,5 +1,8 @@
 @media (max-width: 700px) {
     body {
+        overflow-y: hidden;
+        height: 100dvh;
+        
         grid-template-columns: 1fr;
         grid-template-rows: 1fr auto;
         grid-template-areas:
@@ -7,8 +10,10 @@
             'header';
     }
 
-    .main {overflow-y: auto;}
+    .main {overflow-y: none; min-height: 0;}
     .main::-webkit-scrollbar {display: none;}
+
+    .container {overflow-y: hidden;}
 
     .site-header {
         grid-area: header;
@@ -16,15 +21,45 @@
         height: auto;
         border-right: none;
         border-top: 2px solid #e0e0e0;
-        padding: 12px 8px;
+        padding: 8px 8px;
+        overflow: visible;
+        z-index: 101;
         nav {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(5, minmax(20px, 1fr));
             h1 {display: none;}
-            a, .more {flex-direction: column;}
+            a, .more {flex-direction: column; gap: 4px;}
+            .more {position: relative;}
             :nth-last-child(2) {
                 margin-top: 0px;
             }
         }
     }
+
+    .more-content.is-visible {
+        bottom: 100px;
+        right: 0;
+        flex-direction: row;
+        padding: 8px;
+        a {text-wrap: nowrap;}
+    }
+
+    .main {
+        height: auto;
+        min-height: 0;  /* prevents 1fr from over-stretching */
+        overflow-y: auto;
+    }
+
+    .num-question-content {
+        h3 {font-size: 12px;}
+        p {font-size: 10px;}
+    }
 }   
+
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-group(*) {
+    animation-duration: 0.5s;
+}

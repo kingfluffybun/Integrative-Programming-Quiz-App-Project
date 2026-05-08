@@ -4,22 +4,28 @@ main {
     padding: 48px;
 }
 
+.container {
+    overflow-y: hidden;
+}
+
 .themes-section {
+    padding: 24px 0;
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
-    padding-top: 160px;
+    overflow-y: auto;
 }
 
 @media (max-width: 700px) {
+    .themes-section::-webkit-scrollbar {display: none;}
     .themes-section {
+        justify-content: center;
         overflow-y: auto;
     }
-    
-    .themes-section::-webkit-scrollbar {display: none;}
 }
 
 .cartoon-container{
+    margin-top: 160px;
     transition: all ease 250ms;
     position: relative;
     display: flex;

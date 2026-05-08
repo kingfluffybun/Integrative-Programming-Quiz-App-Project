@@ -13,13 +13,29 @@
     .main {background-size: cover !important;}
 }
 
+/* .main::before,
+.main::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: calc((100% - 562px) / 2);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.main::before { left: 0; }
+.main::after { right: 0; } */
+
 .snoopy {
     .main {
     /* linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),  */
     background-color: var(--snoopy-container-color);
     background-image:url(../wallpapers/snoopy.jpg);
     background-size: 562px auto;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: bottom;
     filter: saturate(125%);
     }
@@ -94,7 +110,7 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url(../wallpapers/adventuretime.jpg);
     background-color: var(--adventure-time-container-color);
     background-size: 562px auto;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: bottom;
     }
 
@@ -144,7 +160,7 @@
     background-color: var(--spongebob-container-color);
     background-image: url(../wallpapers/spongebob.jpg);
     background-size: 562px auto;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: bottom;
     }
 
@@ -198,7 +214,7 @@
     filter: saturate(125%);
     background-image: linear-gradient(rgba(0, 0, 0, 0.075), rgba(0, 0, 0, 0.075)), url(../wallpapers/powerpuff-girls.jpg);
     background-size: 562px auto;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: center 0px;
     }
 
@@ -250,7 +266,7 @@
     background-color: var(--we-bare-bears-container-color);
     background-image:url(../wallpapers/webarebears.jpg);
     background-size: 562px auto;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: bottom;
     filter: saturate(125%);
     }

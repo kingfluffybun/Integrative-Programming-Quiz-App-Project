@@ -72,8 +72,8 @@
     <div class="main">
         <div class="container" style="max-width: 562px;">
             <div class="quiz-configuration">
-                <h1 style="text-align: center;"><%= title || 'Express Quiz App' %></h1>
-                <p style="text-align: center; color: #666; font-size: 12px;">Test your knowledge with questions from the Open Trivia Database!</p> <br>
+                <!-- <h1 style="text-align: center;"><%= title || 'Express Quiz App' %></h1>
+                <p style="text-align: center; color: #666; font-size: 12px;">Test your knowledge with questions from the Open Trivia Database!</p> <br> -->
                 <div class="form-group">
                     <h2>Select Quiz Length</h2>
                     <label class="num-question">
@@ -161,7 +161,7 @@
             </div>
             
             <div id="quiz-persistent-header"></div>
-            <div id="quiz-container"></div>
+            <div id="quiz-container" style="display: none;"></div>
         </div>
     </div>
     <script src="/js/ui.js"></script>

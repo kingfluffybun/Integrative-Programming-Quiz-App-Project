@@ -29,6 +29,7 @@ async function loadCategories() {
 }
 
 async function getQuestions() {
+    
     const selectedAmount = document.querySelector('input[name="length"]:checked');
     const selectedDifficulty = document.querySelector('input[name="difficulty"]:checked');
   const amount = parseInt(selectedAmount.value);
@@ -36,6 +37,7 @@ async function getQuestions() {
   const difficulty = selectedDifficulty.value
 
   const container = document.getElementById("quiz-container")
+  container.style.display = "flex"
   container.innerHTML = '<div class="loading"><div class="spinner"></div><div class="loading-text">Fetching questions from OpenTDB...</div></div>'
 
   // Disable the start button during loading
@@ -71,6 +73,11 @@ function displayQuestions(questions) {
   currentQuestionIndex = 0
   const container = document.getElementById("quiz-container")
   container.innerHTML = ""
+
+  if (window.matchMedia('(max-width: 700px)').matches) {
+  document.body.style.cssText = "grid-template-rows: 1fr; grid-template-areas: 'main';"
+  document.querySelector('.site-header').style.display = "none";
+  }
 
   // Shuffle answers for each question and store them
   questions.forEach((question) => {
@@ -163,11 +170,11 @@ function showQuestion(index) {
         
         const currentDifficulty = question.difficulty
         const displayDifficulty = currentDifficulty.charAt(0).toUpperCase() + currentDifficulty.slice(1)
-        questionDiv.innerHTML = `<h2>${decodeHtml(question.question)}</h2>
-        <div class="question-info">
-            <span><strong>Difficulty:</strong> ${displayDifficulty}</span>
-        </div>`
+        questionDiv.innerHTML = `<h2>${decodeHtml(question.question)}</h2>`
 
+        // <div class="question-info">
+        //     <span><strong>Difficulty:</strong> ${displayDifficulty}</span>
+        // </div>
         // <span><strong>Category:</strong> ${question.category}</span>
         // <span><strong>Type:</strong> ${question.type}</span>
 
@@ -350,6 +357,10 @@ function resetQuiz() {
   document.querySelector('.quiz-configuration').style.display = "block";
   const navContainer = document.querySelector('.nav-container')
   navContainer.style.display = "none";
+  if (window.matchMedia('(max-width: 700px)').matches) {
+    document.body.style.cssText = "grid-template-rows: 1fr auto; grid-template-areas: 'main' 'header';"
+    document.querySelector('.site-header').style.display = "flex";
+  }
 }
 
 // Load categories and setup event listeners on page load

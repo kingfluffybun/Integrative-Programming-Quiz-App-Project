@@ -91,8 +91,7 @@ nav .bottom {
     flex-direction: column;
     border: #e0e0e0 2px solid;
     padding: 12px;
-    width: 200px;
-    right: -210px;
+    right: -160px;
     bottom: 0;
     border-radius: 12px;
     gap: 4px;
@@ -137,10 +136,12 @@ nav .bottom {
     position: relative;
     display: flex;
     grid-area: main;
+    justify-content: center;
+    overflow-y: auto;
 }
 
 .container {
-    padding: 30px;
+    padding: 28px;
     width: 100%;
     overflow-y: auto;
     display: flex;
@@ -169,8 +170,8 @@ input[type="radio"] {
     gap: 4px;
     cursor: pointer;
     border-radius: 8px;
-    position: relative;
     font-size: 12px;
+    position: relative;
     height: 80px;
     h3 {color: #323232;}
 }
