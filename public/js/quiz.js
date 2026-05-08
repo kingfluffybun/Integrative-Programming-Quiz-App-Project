@@ -2,6 +2,14 @@
 let currentQuestions = []
 let userAnswers = []
 let currentQuestionIndex = 0
+let totalScore = 0
+
+// Difficulty score mapping
+const difficultyScores = {
+  'easy': 100,
+  'medium': 250,
+  'hard': 500
+}
 
 // Function to decode HTML entities
 function decodeHtml(html) {
@@ -71,6 +79,7 @@ async function getQuestions() {
 
 function displayQuestions(questions) {
   currentQuestionIndex = 0
+  totalScore = 0
   const container = document.getElementById("quiz-container")
   container.innerHTML = ""
 
@@ -134,7 +143,7 @@ function showQuestion(index) {
             <p style="text-align: center; font-family: FeatherBold">${progressText}</p>
             <div style="display: flex; justify-content: flex-end; align-items:center; gap: 8px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
-                <p style="font-family: FeatherBold">1000</p>
+                <p style="font-family: FeatherBold; margin: 0;" id="score-display">${totalScore}</p>
             </div>
         `
 
@@ -296,6 +305,14 @@ function checkAnswer(index) {
   const radioButtons = document.querySelectorAll(`input[name="question-${index}"]`)
   const isCorrect = selectedAnswer === correctAnswer
   
+  // Add points if correct
+  if (isCorrect) {
+    const difficulty = question.difficulty.toLowerCase()
+    const points = difficultyScores[difficulty] || 10
+    totalScore += points
+    updateScoreDisplay()
+  }
+  
   radioButtons.forEach((radio) => {
     const label = radio.closest('.answer-option')
     
@@ -324,6 +341,13 @@ function checkAnswer(index) {
   })
   
   return isCorrect
+}
+
+function updateScoreDisplay() {
+  const scoreElement = document.getElementById('score-display')
+  if (scoreElement) {
+    scoreElement.textContent = totalScore
+  }
 }
 
 function submitQuiz() {
@@ -391,16 +415,91 @@ function displayResults(data) {
     container.appendChild(resultDiv)
   })
 
+  // Add button container
+  const buttonContainer = document.createElement("div")
+  buttonContainer.style.cssText = "display: flex; gap: 12px; margin-top: 20px;"
+
+  // Add next button to go to leaderboard
+  const nextBtn = document.createElement("button")
+  nextBtn.textContent = "View Leaderboard"
+  nextBtn.id = "leaderboard-btn"
+  nextBtn.style.background = "#007bff"
+  nextBtn.addEventListener('click', () => showLeaderboard(data))
+  buttonContainer.appendChild(nextBtn)
+
   // Add reset button
   const resetButton = document.createElement("button")
   resetButton.textContent = "Take Another Quiz"
   resetButton.id = "reset-results-btn"
-  resetButton.style.background = "#007bff"
-  resetButton.style.marginTop = "20px"
-  container.appendChild(resetButton)
-
-  // Add event listener for reset button
+  resetButton.style.background = "#6c757d"
   resetButton.addEventListener('click', resetQuiz)
+  buttonContainer.appendChild(resetButton)
+
+  container.appendChild(buttonContainer)
+}
+
+function showLeaderboard() {
+  const container = document.getElementById("quiz-container")
+  container.innerHTML = ""
+
+  // Leaderboard container template
+  const leaderboardDiv = document.createElement("div")
+  leaderboardDiv.className = "leaderboard-container"
+  leaderboardDiv.id = "leaderboard"
+  leaderboardDiv.innerHTML = `
+    <div class="leaderboard-header">
+      <h2>Leaderboard</h2>
+    </div>
+    <div>
+    <div class="leaderboard-content">
+        <div class="top-leaderboard">
+            <div class="top-leaderboard-player" id="second"><h2>2nd</h2><p>4000</p></div>
+            <div class="top-leaderboard-player" id="first"><h2>1st</h2><p>5000</p></div>
+            <div class="top-leaderboard-player" id="third"><h2>3rd</h2><p>3500</p></div>
+        </div> <br>
+        <div class="leaderboard-player">
+            <div class="player-info">
+                <div class="leaderboard-position">
+                    <h2>4</h2>
+                </div>
+                <p>Player 4</p>
+            </div>
+            <p>3000</p>
+        </div>
+        <div class="leaderboard-player">
+            <div class="player-info">
+                <div class="leaderboard-position">
+                    <h2>5</h2>
+                </div>
+                <p>Player 5</p>
+            </div>
+            <p>3000</p>
+        </div>
+        <div class="leaderboard-player">
+            <div class="player-info">
+                <div class="leaderboard-position">
+                    <h2>6</h2>
+                </div>
+                <p>Player 6</p>
+            </div>
+            <p>3000</p>
+        </div>
+    </div>
+  `
+  container.appendChild(leaderboardDiv)
+
+  // Add back button
+  const buttonContainer = document.createElement("div")
+  buttonContainer.style.cssText = "display: flex; gap: 12px; margin-top: 20px;"
+
+  const backBtn = document.createElement("button")
+  backBtn.textContent = "Take Another Quiz"
+  backBtn.id = "back-btn"
+  backBtn.style.background = "#007bff"
+  backBtn.addEventListener('click', resetQuiz)
+  buttonContainer.appendChild(backBtn)
+
+  container.appendChild(buttonContainer)
 }
 
 function resetQuiz() {

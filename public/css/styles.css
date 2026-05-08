@@ -31,7 +31,6 @@ p, a, li, label, span, input, button, select {
 
 h1, h2, h3, h4, h5 {
     font-family: FeatherBold;
-    color: var(--primary-color);
 }
 
 body {
@@ -385,7 +384,7 @@ button:hover {
     cursor: pointer;
 }
 
-.answer-option-content {
+.answer-option-content, .leaderboard-player {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -505,4 +504,57 @@ button:hover {
 
 .result.incorrect h4::before {
   content: "❌ ";
+}
+
+.leaderboard-container {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.leaderboard-header {
+    margin-bottom: 60px;
+}
+
+.leaderboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.top-leaderboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-content: end;
+    height: 160px;
+}
+
+.top-leaderboard-player {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 100%; height: 100%;
+    border-radius: 8px 8px 0 0;
+}
+
+#first {grid-row: span 3 / 4; background-color: #F5D97A; border-bottom: 8px solid #C9A832; color: #7A5500 !important}
+#second {grid-row: span 2 / 4; background-color: #D8D8D8; border-bottom: 8px solid #A0A0A0; color: #4A4A4A !important;}
+#third {grid-row: span 2 / 4; background-color: #E8BF9A; border-bottom: 8px solid #C49060; color: #7A3E10 !important;}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.leaderboard-position {
+    width: 32px; height: 32px;
+    border-radius: 50%;
 }

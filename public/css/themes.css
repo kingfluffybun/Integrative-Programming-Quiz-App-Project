@@ -59,7 +59,7 @@
         border: 2px solid black;
     }
 
-    .answer-option-content {
+    .answer-option-content, .leaderboard-player {
         background-color: #fff8e8 ;
         border-width: 2px 2px 4px 2px;
         border-style: solid;
@@ -86,6 +86,24 @@
         background-color: var(--snoopy-container-color);
         color: #333;
         font-weight: 700;
+    }
+
+    .leaderboard-header {
+        h2 {color: #A96B22; text-align: center;}
+    }
+
+    .leaderboard-container {
+        background-color: var(--snoopy-container-color);
+    }
+
+    .leaderboard-player {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .leaderboard-position {
+        background-color:#A96B22 ;
+        h2{ color: var(--snoopy-container-color) !important;} 
     }
 }
 
