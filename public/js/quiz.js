@@ -534,7 +534,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   length.forEach(radio => {
     radio.addEventListener('change', function() {
-      if (this.value === '40') {
+      if (this.value === '50') {
         // Epic selected: auto-select "Any" and disable others
         if (anyDifficulty) anyDifficulty.checked = true;
         difficulty.forEach(diff => {
