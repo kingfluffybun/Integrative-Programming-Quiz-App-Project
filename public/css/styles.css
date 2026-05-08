@@ -407,6 +407,20 @@ button:hover {
     color: white;
 }
 
+.feedback-correct .answer-option-content {
+    background-color: #D7FFB8 !important;
+    color: #58A700 !important;
+    border-color:  #A5ED6E !important;
+    border-bottom: 4px solid #A5ED6E !important;
+}
+
+.feedback-incorrect .answer-option-content {
+    background-color: #F2C4C4 !important;
+    color: #7A2E2E !important;
+    border-color:  #E07878 !important;
+    border-bottom: 4px solid #E07878 !important;
+}
+
 .loading {
   text-align: center;
   font-style: italic;

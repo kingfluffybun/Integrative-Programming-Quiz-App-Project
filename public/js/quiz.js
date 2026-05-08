@@ -219,8 +219,11 @@ function showQuestion(index) {
 
         const nextBtn = document.createElement("button")
         nextBtn.className = "nextBtn";
+        nextBtn.id = `action-btn-${index}`;
+        let isAnswerChecked = false
+        
         if (index < currentQuestions.length - 1) {
-            nextBtn.innerHTML = `<p>Next</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-step-forward-icon lucide-step-forward"><path d="M10.029 4.285A2 2 0 0 0 7 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/><path d="M3 4v16"/></svg>`
+            nextBtn.innerHTML = `<p>Check</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>`
             nextBtn.style.background = ""
         } else {
             nextBtn.textContent = "Submit Quiz"
@@ -230,9 +233,18 @@ function showQuestion(index) {
         nextBtn.onclick = () => {
             saveCurrentAnswer()
             if (index < currentQuestions.length - 1) {
-            showQuestion(index + 1)
+                if (!isAnswerChecked) {
+                    // First click - check the answer
+                    checkAnswer(index)
+                    // Change button to "Next"
+                    isAnswerChecked = true
+                    nextBtn.innerHTML = `<p>Next</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-step-forward-icon lucide-step-forward"><path d="M10.029 4.285A2 2 0 0 0 7 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/><path d="M3 4v16"/></svg>`
+                } else {
+                    // Second click - go to next question
+                    showQuestion(index + 1)
+                }
             } else {
-            submitQuiz()
+                submitQuiz()
             }
         }
 
@@ -269,6 +281,49 @@ function saveCurrentAnswer() {
 
 function selectAnswer(index, answer) {
   userAnswers[index] = answer
+}
+
+function checkAnswer(index) {
+  const question = currentQuestions[index]
+  const correctAnswer = question.correct_answer
+  const selectedAnswer = userAnswers[index]
+  
+  if (!selectedAnswer) {
+    alert("Please select an answer first!")
+    return false
+  }
+  
+  const radioButtons = document.querySelectorAll(`input[name="question-${index}"]`)
+  const isCorrect = selectedAnswer === correctAnswer
+  
+  radioButtons.forEach((radio) => {
+    const label = radio.closest('.answer-option')
+    
+    if (radio.value === selectedAnswer) {
+      // Selected answer
+      if (isCorrect) {
+        // Correct answer
+        label.classList.add('feedback-correct')
+        label.style.opacity = '1'
+      } else {
+        // Incorrect answer
+        label.classList.add('feedback-incorrect')
+        label.style.opacity = '1'
+      }
+    } else if (radio.value === correctAnswer) {
+      // Show the correct answer even if not selected
+      label.classList.add('feedback-correct')
+    //   label.style.opacity = '0.7'
+    } else {
+      // Other wrong answers
+    //   label.style.opacity = '0.4'
+    }
+    
+    // Disable further selection
+    radio.disabled = true
+  })
+  
+  return isCorrect
 }
 
 function submitQuiz() {
