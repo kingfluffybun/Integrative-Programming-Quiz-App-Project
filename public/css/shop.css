@@ -1,4 +1,4 @@
-section {
+main {
     display: flex;
     flex-direction: column;
     padding: 48px;
@@ -9,6 +9,14 @@ section {
     flex-wrap: wrap;
     gap: 24px;
     padding-top: 160px;
+}
+
+@media (max-width: 700px) {
+    .themes-section {
+        overflow-y: auto;
+    }
+    
+    .themes-section::-webkit-scrollbar {display: none;}
 }
 
 .cartoon-container{

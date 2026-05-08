@@ -1,0 +1,30 @@
+@media (max-width: 700px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+        grid-template-areas:
+            'main'
+            'header';
+    }
+
+    .main {overflow-y: auto;}
+    .main::-webkit-scrollbar {display: none;}
+
+    .site-header {
+        grid-area: header;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-top: 2px solid #e0e0e0;
+        padding: 12px 8px;
+        nav {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            h1 {display: none;}
+            a, .more {flex-direction: column;}
+            :nth-last-child(2) {
+                margin-top: 0px;
+            }
+        }
+    }
+}   

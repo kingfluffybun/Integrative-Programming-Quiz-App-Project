@@ -107,7 +107,7 @@ const login = async (req, res) => {
         req.session.userId = user.id;
         req.session.username = user.username;
 
-        res.redirect('/quiz');
+        res.redirect('/');
 
     } catch (error) {
         console.error('Login error:', error);
@@ -126,7 +126,7 @@ const logout = (req, res) => {
         if (err) {
             console.error('Logout error:', err);
         }
-        res.redirect('/');
+        res.redirect('/login');
     });
 };
 

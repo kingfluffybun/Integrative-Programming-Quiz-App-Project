@@ -24,6 +24,36 @@
     filter: saturate(125%);
     }
 
+    .quiz-configuration {
+        h1, h2 {color: #A96B22;}
+    }
+
+    input[type=radio]:active + .num-question-content {
+    border-bottom: 2px solid #A96B22;
+    border-color: #A96B22;
+    color: #A96B22;
+    h3, p {color: #A96B22;}
+    }
+
+    input[type=radio]:active + .num-question-content .circle {
+        border-color: #A96B22;
+        border: solid 6px;
+    }
+
+    input[type=radio]:checked + .num-question-content {
+        border-color: #A96B22;
+        h3, p, svg {color: #A96B22;}
+        svg {fill: currentColor;}
+    }
+
+    input[type=radio]:checked + .num-question-content .circle {
+        border-color: #A96B22;
+        border: solid 6px;
+        color: #A96B22;
+    }
+
+    #start-quiz-btn {background-color: #A96B22;}
+
     .question {
         background-color: var(--snoopy-container-color);
         border: 2px solid black;
