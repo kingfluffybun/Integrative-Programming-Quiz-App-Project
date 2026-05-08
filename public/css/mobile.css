@@ -50,10 +50,10 @@
         overflow-y: auto;
     }
 
-    .num-question-content {
+    /* .num-question-content {
         h3 {font-size: 12px;}
         p {font-size: 10px;}
-    }
+    } */
 }   
 
 @view-transition {
