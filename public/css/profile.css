@@ -20,7 +20,7 @@
 
 .profile-input-wrapper {
     display: grid;
-    grid-template-columns: 1fr 100px;
+    grid-template-columns: 1fr auto;
     gap: 12px;
 }
 
@@ -270,6 +270,7 @@
     transition: all 200ms ease;
     background: linear-gradient(135deg, var(--primary-color) 0%, rgba(247, 102, 143, 0.9) 100%);
     color: white;
+    min-width: 70px;
 }
 
 .btn-small:hover:not(:disabled) {
@@ -835,7 +836,7 @@
 }
 
 @media (max-width: 1024px) {
-    section.profile-section {
+    .profile-section {
         padding: 32px 24px;
         gap: 24px;
     }
@@ -879,7 +880,7 @@
     .profile-input-wrapper .btn-small {
         width: 100%;
     }
-    section.profile-section {
+    .profile-section {
         padding: 24px 16px;
         gap: 20px;
     }
@@ -982,7 +983,7 @@
 }
 
 @media (max-width: 480px) {
-    section.profile-section {
+    .profile-section {
         padding: 16px 12px;
         gap: 16px;
     }
