@@ -166,7 +166,7 @@ function showQuestion(index) {
         if (!fill) {
             const progression = document.createElement("div")
             progression.className = "progression"
-            progression.style.cssText = "display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"
+            progression.style.cssText = "display:flex;flex-direction:column;gap:8px;margin-bottom:12px;"
             progression.innerHTML = `
                 <div class="progress-bar" style="width:100%;height:16px;background-color:#e5e5e5;border-radius:16px;overflow:hidden;">
                     <div class="progress-bar-fill" style="width:0%;height:100%;background-color:#4CAF50;transition:width 250ms ease;"></div>
@@ -420,6 +420,7 @@ function displayResults(data) {
 
   const resultContainer = document.createElement("div")
   resultContainer.className = "result-container"
+  resultContainer.innerHTML = `<h2>Review Questions</h2>`
   container.appendChild(resultContainer)
 
   data.results.forEach((result, index) => {
@@ -427,15 +428,21 @@ function displayResults(data) {
     const resultDiv = document.createElement("div")
     resultDiv.className = `result ${result.correct ? "correct" : "incorrect"}`
     resultDiv.innerHTML = `
-            <h4>Question ${index + 1}: ${decodeHtml(result.question)}</h4>
-            <p><strong>Your answer:</strong> ${decodeHtml(result.userAnswer)}</p>
-            <p><strong>Correct answer:</strong> ${decodeHtml(result.correctAnswer)}</p>
+            <div class="question-num"><h3>${index + 1}</h3></div>
+            <div>
+                <h4 style="display:flex; flex-grow: 1;">${decodeHtml(result.question)}</h4>
+                <p><strong>Your answer:</strong> ${decodeHtml(result.userAnswer)}</p>
+                <p><strong>Correct answer:</strong> ${decodeHtml(result.correctAnswer)}</p>
+            </div>
+            <div id="correct" style="display: ${result.correct ? 'flex' : 'none'};"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div id="incorrect" style="display: ${!result.correct ? 'flex' : 'none'};"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div>
         `
     resultContainer.appendChild(resultDiv)
   })
 
   // Add button container
   const buttonContainer = document.createElement("div")
+  buttonContainer.className = "nav-container"
   buttonContainer.style.cssText = "display: flex; gap: 12px; margin-top: 20px;"
 
   // Add next button to go to leaderboard
@@ -479,7 +486,7 @@ function showLeaderboard() {
         <div class="leaderboard-player">
             <div class="player-info">
                 <div class="leaderboard-position">
-                    <h2>4</h2>
+                    <h3>4</h3>
                 </div>
                 <p>Player 4</p>
             </div>
@@ -488,7 +495,7 @@ function showLeaderboard() {
         <div class="leaderboard-player">
             <div class="player-info">
                 <div class="leaderboard-position">
-                    <h2>5</h2>
+                    <h3>5</h3>
                 </div>
                 <p>Player 5</p>
             </div>
@@ -497,7 +504,7 @@ function showLeaderboard() {
         <div class="leaderboard-player">
             <div class="player-info">
                 <div class="leaderboard-position">
-                    <h2>6</h2>
+                    <h3>6</h3>
                 </div>
                 <p>Player 6</p>
             </div>
@@ -510,6 +517,7 @@ function showLeaderboard() {
   // Add back button
   const buttonContainer = document.createElement("div")
   buttonContainer.style.cssText = "display: flex; gap: 12px; margin-top: 20px;"
+  buttonContainer.className = "nav-container"
 
   const backBtn = document.createElement("button")
   backBtn.textContent = "Take Another Quiz"

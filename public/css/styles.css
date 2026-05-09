@@ -144,7 +144,7 @@ nav .bottom {
 }
 
 .container {
-    padding: 28px;
+    padding: 20px;
     width: 100%;
     overflow-y: auto;
     display: flex;
@@ -429,6 +429,11 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.result #correct, .result #incorrect {
+    top: -12px; right: -12px;
 }
 
 #correct {
@@ -444,6 +449,20 @@ button:hover {
 #correct svg, #incorrect svg {
     width: 20px;
     height: 20px;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .loading {
@@ -507,18 +526,31 @@ button:hover {
     flex-direction: column;
     gap: 12px;
     overflow-y: scroll;
-    height: calc(100vh - 328px);
-    padding: 12px;
+    height: calc(100vh - 332px);
+    padding: 24px;
     border-radius: 8px;
+    
+}
+
+.question-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px; min-height: 32px;
+    max-height: 32px;
+    border-radius: 50%;
 }
 
 .result {
-  padding: 15px;
+    position: relative;
+    display: flex;
+    gap: 12px;
+  padding: 12px;
   border-radius: 8px;
   border: 1px solid #ddd;
 }
 
-.result.correct {
+/* .result.correct {
   background: #d4edda;
   border-color: #c3e6cb;
 }
@@ -526,24 +558,27 @@ button:hover {
 .result.incorrect {
   background: #f8d7da;
   border-color: #f5c6cb;
-}
+} */
 
-.result h4 {
+.result h4, .result strong {
   margin-top: 0;
   color: #333;
 }
 
+.result h4 {font-size: 20px;}
+
 .result p {
   margin: 8px 0;
+  font-size: 14px;
 }
 
-.result.correct h4::before {
+/* .result.correct h4::before {
   content: "✅ ";
 }
 
 .result.incorrect h4::before {
   content: "❌ ";
-}
+} */
 
 .leaderboard-container {
     border: 2px solid black;
@@ -601,4 +636,7 @@ button:hover {
 .leaderboard-position {
     width: 32px; height: 32px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
