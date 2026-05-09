@@ -9,6 +9,7 @@ async function initDB() {
                 username VARCHAR(50) NOT NULL UNIQUE,
                 email VARCHAR(100) NOT NULL UNIQUE,
                 password VARCHAR(255) NOT NULL,
+                coins INT DEFAULT 0,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
@@ -35,6 +36,18 @@ async function initDB() {
                 otp VARCHAR(6) NOT NULL,
                 expires_at TIMESTAMP NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
+        // Create user_themes table
+        await db.query(`
+            CREATE TABLE IF NOT EXISTS user_themes (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                theme_name VARCHAR(50) NOT NULL,
+                purchased_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                UNIQUE KEY (user_id, theme_name)
             )
         `);
 

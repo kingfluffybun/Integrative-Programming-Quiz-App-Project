@@ -2,13 +2,13 @@
 let currentQuestions = []
 let userAnswers = []
 let currentQuestionIndex = 0
-let totalScore = 0
+let coinsEarned = 0
 
 // Difficulty score mapping
 const difficultyScores = {
-  'easy': 100,
-  'medium': 250,
-  'hard': 500
+  'easy': 125,
+  'medium': 200,
+  'hard': 350
 }
 
 // Function to decode HTML entities
@@ -83,7 +83,7 @@ async function getQuestions() {
 
 function displayQuestions(questions) {
   currentQuestionIndex = 0
-  totalScore = 0
+  coinsEarned = 0
   const container = document.getElementById("quiz-container")
   container.innerHTML = ""
 
@@ -147,7 +147,7 @@ function showQuestion(index) {
             <p style="text-align: center; font-family: FeatherBold">${progressText}</p>
             <div style="display: flex; justify-content: flex-end; align-items:center; gap: 8px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
-                <p style="font-family: FeatherBold; margin: 0;" id="score-display">${totalScore}</p>
+                <p style="font-family: FeatherBold; margin: 0;" id="score-display">${coinsEarned}</p>
             </div>
         `
 
@@ -320,7 +320,7 @@ function checkAnswer(index) {
   if (isCorrect) {
     const difficulty = question.difficulty.toLowerCase()
     const points = difficultyScores[difficulty] || 10
-    totalScore += points
+    coinsEarned += points
     updateScoreDisplay()
   }
   
@@ -359,7 +359,7 @@ function checkAnswer(index) {
 function updateScoreDisplay() {
   const scoreElement = document.getElementById('score-display')
   if (scoreElement) {
-    scoreElement.textContent = totalScore
+    scoreElement.textContent = coinsEarned
   }
 }
 
@@ -388,6 +388,7 @@ function submitQuiz() {
     body: JSON.stringify({
       answers: userAnswers,
       questions: currentQuestions,
+      coinsEarned: coinsEarned
     }),
   })
     .then((response) => response.json())
@@ -413,6 +414,7 @@ function displayResults(data) {
   scoreDiv.innerHTML = `
         <h2>Quiz Results</h2>
         <p>You scored ${data.correct} out of ${data.total} (${data.percentage}%)</p>
+        <p>Coins Earned: ${coinsEarned}</p>
     `
   container.appendChild(scoreDiv)
 

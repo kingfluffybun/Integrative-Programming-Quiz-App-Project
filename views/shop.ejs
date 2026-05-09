@@ -20,38 +20,119 @@
     <div class="main">
         <div class="container">
             <h1>Themes</h1>
+            <!-- Paayos neto -->
+            <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 20px; color: var(--primary-color);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                <p style="font-family: FeatherBold;" id="user-coins"><%= user ? user.coins : 0 %></p>
+            </div>
+            <!-- To here -->
+            
             <div class="themes-section">
                 <div class="cartoon-container" style="background-color: var(--snoopy-container-color);">
                     <img src="/shop/snoopy.png" alt="">
                     <div>
                         <h2>Peanuts</h2>
-                        <button style="color: var(--snoopy-container-color);">Buy</button>
+                        <!-- Paayos -->
+                        <% if (typeof ownedThemes !== 'undefined' && ownedThemes.includes('snoopy')) { %>
+                            <button class="buy-btn" data-theme="snoopy" disabled style="color: var(--snoopy-container-color); opacity: 0.7; cursor: not-allowed;">Owned</button>
+                        <% } else { %>
+                            <button class="buy-btn" data-theme="snoopy" style="color: var(--snoopy-container-color);">Buy
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                                2000
+                            </button>
+                        <% } %>
                     </div>
                 </div>
                 <div class="cartoon-container" style="background-color: var(--powerpuff-girls-container-color);">
                     <img src="/shop/powerpuffgirls.png" alt="">
                     <div>
                         <h2>PowerPuff Girls</h2>
-                        <button style="color: var(--powerpuff-girls-container-color);">Buy</button>
+                        <!-- Paayos -->
+                        <% if (typeof ownedThemes !== 'undefined' && ownedThemes.includes('powerpuff-girls')) { %>
+                            <button class="buy-btn" data-theme="powerpuff-girls" disabled style="color: var(--powerpuff-girls-container-color); opacity: 0.7; cursor: not-allowed;">Owned</button>
+                        <% } else { %>
+                            <button class="buy-btn" data-theme="powerpuff-girls" style="color: var(--powerpuff-girls-container-color);">Buy
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                                2000
+                            </button>
+                        <% } %>
                     </div>
                 </div>
                 <div class="cartoon-container" style="background-color: var(--spongebob-container-color);">
                     <img src="/shop/spongebob.png" alt="">
                     <div>
                         <h2>Spongebob</h2>
-                        <button style="color: var(--spongebob-container-color);">Buy</button>
+                        <% if (typeof ownedThemes !== 'undefined' && ownedThemes.includes('spongebob')) { %>
+                            <button class="buy-btn" data-theme="spongebob" disabled style="color: var(--spongebob-container-color); opacity: 0.7; cursor: not-allowed;">Owned</button>
+                        <% } else { %>
+                            <button class="buy-btn" data-theme="spongebob" style="color: var(--spongebob-container-color);">Buy
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                                2000
+                            </button>
+                        <% } %>
                     </div>
                 </div>
                 <div class="cartoon-container" style="background-color: var(--adventure-time-container-color);">
                     <img src="/shop/adventuretime.png" alt="" >
                     <div>
                         <h2>Adventure Time</h2>
-                        <button style="color: var(--adventure-time-container-color);">Buy</button>
+                        <% if (typeof ownedThemes !== 'undefined' && ownedThemes.includes('adventure-time')) { %>
+                            <button class="buy-btn" data-theme="adventure-time" disabled style="color: var(--adventure-time-container-color); opacity: 0.7; cursor: not-allowed;">Owned</button>
+                        <% } else { %>
+                            <button class="buy-btn" data-theme="adventure-time" style="color: var(--adventure-time-container-color);">Buy
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                                2000
+                            </button>
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="/js/ui.js"></script>
+    <script>
+        document.querySelectorAll('.buy-btn').forEach(button => {
+            button.addEventListener('click', async () => {
+                const themeName = button.getAttribute('data-theme');
+                const cost = 2000;
+                const userCoinsText = document.getElementById('user-coins').textContent.trim();
+                const userCoins = parseInt(userCoinsText);
+
+                if (userCoins < cost) {
+                    alert('insufficient coins');
+                    return;
+                }
+
+                const confirmed = confirm('are you sure you want to buy this?');
+                if (!confirmed) return;
+
+                try {
+                    const response = await fetch('/shop/purchase', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ themeName })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        alert(data.message);
+                        document.getElementById('user-coins').textContent = data.newBalance;
+                        button.disabled = true;
+                        button.innerHTML = 'Owned';
+                        button.style.opacity = '0.7';
+                        button.style.cursor = 'not-allowed';
+                    } else {
+                        alert(data.message);
+                    }
+                } catch (error) {
+                    console.error('Error during purchase:', error);
+                    alert('An error occurred during purchase.');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

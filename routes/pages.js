@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const { getProfile, updateProfile } = require('../controllers/profileController')
+const { purchaseTheme, getShop } = require('../controllers/shopController')
+
 
 // Home page (static info about the app using OpenTDB)
 router.get('/', (req, res) => {
@@ -18,9 +20,8 @@ router.get('/quiz', (req, res) => {
 })
 
 // Shop page
-router.get('/shop', (req, res) => {
-  res.render('shop', { title: 'Quiz - Express Quiz App' })
-})
+router.get('/shop', getShop)
+router.post('/shop/purchase', purchaseTheme)
 
 // Login page
 router.get('/login', (req, res) => {

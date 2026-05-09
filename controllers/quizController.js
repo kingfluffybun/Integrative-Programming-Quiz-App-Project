@@ -98,7 +98,8 @@ const submitQuiz = async (req, res) => {
             })
         }
 
-        const { answers, questions } = req.body
+        const { answers, questions, coinsEarned } = req.body
+
 
         if (!answers || !questions || answers.length !== questions.length) {
             return res.status(400).json({
@@ -124,7 +125,8 @@ const submitQuiz = async (req, res) => {
             })
         })
 
-        const score = Math.round((correct / questions.length) * 100)
+        const score = Math.round((correct / questions.length) * 100);
+        const coins = parseInt(coinsEarned) || 0;
 
         // Save score to database if user is logged in
         if (req.session.userId) {
@@ -136,6 +138,12 @@ const submitQuiz = async (req, res) => {
                 await db.query(
                     'INSERT INTO scores (user_id, score, category, difficulty, total_questions, correct_answers) VALUES (?, ?, ?, ?, ?, ?)',
                     [req.session.userId, score, category, difficulty, questions.length, correct]
+                );
+
+                // Add score to user's total coins (currency)
+                await db.query(
+                    'UPDATE users SET coins = coins + ? WHERE id = ?',
+                    [coins, req.session.userId]
                 );
             } catch (dbError) {
                 console.error('Error saving score to database:', dbError);

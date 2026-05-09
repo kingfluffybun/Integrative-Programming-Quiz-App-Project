@@ -4,10 +4,15 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const cors = require('cors')
 const session = require('express-session');
+// For Development
+const os = require('os');
+
 const MySQLStore = require('express-mysql-session')(session);
 const quizRoutes = require('./routes/quiz')
 const pagesRoutes = require('./routes/pages')
 const authRoutes = require('./routes/auth')
+const db = require('./database/connection');
+
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -18,7 +23,10 @@ app.set('views', './views')
 
 // Middleware
 app.use(morgan('combined'))
-app.use(helmet())
+// For Development
+app.use(helmet({
+    contentSecurityPolicy: false, // Relaxed for local development/IP access
+}))
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -44,8 +52,26 @@ app.use(session({
 }));
 
 // Make user info available in all templates
-app.use((req, res, next) => {
-    res.locals.user = req.session.userId ? { id: req.session.userId, username: req.session.username } : null;
+app.use(async (req, res, next) => {
+    if (req.session.userId) {
+        try {
+            const [users] = await db.query('SELECT username, coins FROM users WHERE id = ?', [req.session.userId]);
+            if (users.length > 0) {
+                res.locals.user = {
+                    id: req.session.userId,
+                    username: users[0].username,
+                    coins: users[0].coins
+                };
+            } else {
+                res.locals.user = null;
+            }
+        } catch (error) {
+            console.error('Error fetching user data for locals:', error);
+            res.locals.user = { id: req.session.userId, username: req.session.username, coins: 0 };
+        }
+    } else {
+        res.locals.user = null;
+    }
     next();
 });
 
@@ -67,7 +93,7 @@ app.use((err, req, res, next) => {
 });
 
 if (require.main === module) {
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
         console.log(`Server is running on port ${PORT}`)
     })
 }
