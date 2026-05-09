@@ -33,6 +33,10 @@ h1, h2, h3, h4, h5 {
     font-family: FeatherBold;
 }
 
+h1 {
+    color: var(--primary-color);
+}
+
 body {
   height: 100vh;
   display: grid;
@@ -149,7 +153,7 @@ nav .bottom {
     grid-area: content;
 }
 
-.container::-webkit-scrollbar, #quiz-container::-webkit-scrollbar {
+.container::-webkit-scrollbar, #quiz-container::-webkit-scrollbar, .result-container::-webkit-scrollbar {
     display: none;
 }
 
@@ -213,8 +217,8 @@ input[type=radio]:checked + .num-question-content .circle {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    overflow-y: auto;
     flex-grow: 1;
+    overflow: visible;
 }
 
 #quiz-container {
@@ -273,7 +277,7 @@ input[type=radio]:checked + .num-question-content .circle {
     width: 24px; height: 24px;
 }
 
-.nextBtn, .prevBtn {
+.nextBtn, .prevBtn, #leaderboard-btn, #back-btn {
     padding: 10px 20px;
     border: none;
     border-radius: 12px;
@@ -382,9 +386,12 @@ button:hover {
 .answer-option {
     width: 100%;
     cursor: pointer;
+    position: relative;
+    overflow: visible;
 }
 
 .answer-option-content, .leaderboard-player {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -397,7 +404,7 @@ button:hover {
     font-size: 16px;
     border: 2px black solid;
     text-align: center;
-    
+    overflow: visible;
 }
 
 .answer-option input[type="radio"] {display: none;}
@@ -406,18 +413,33 @@ button:hover {
     color: white;
 }
 
-.feedback-correct .answer-option-content {
-    background-color: #D7FFB8 !important;
-    color: #58A700 !important;
-    border-color:  #A5ED6E !important;
-    border-bottom: 4px solid #A5ED6E !important;
+#correct, #incorrect {
+    position: absolute;
+    width: 32px; 
+    height: 32px;
+    border-radius: 50%;
+    top: -16px;
+    right: -16px;
+    display: none;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.feedback-incorrect .answer-option-content {
-    background-color: #F2C4C4 !important;
-    color: #7A2E2E !important;
-    border-color:  #E07878 !important;
-    border-bottom: 4px solid #E07878 !important;
+#correct {
+    background-color: #61E002;
+    color: white;
+}
+
+#incorrect {
+    background-color: #FF5252;
+    color: white;
+}
+
+#correct svg, #incorrect svg {
+    width: 20px;
+    height: 20px;
 }
 
 .loading {
@@ -454,6 +476,9 @@ button:hover {
 }
 
 .error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   color: #dc3545;
   background: #f8d7da;
   border: 1px solid #f5c6cb;
@@ -471,6 +496,16 @@ button:hover {
   border: 1px solid #c3e6cb;
   border-radius: 8px;
   color: #155724;
+}
+
+.result-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: scroll;
+    height: calc(100vh - 300px);
+    padding: 12px;
+    border-radius: 8px;
 }
 
 .result {
@@ -524,6 +559,11 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 4px;
+}
+
+.leaderboard-player {
+    display: flex;
+    justify-content: space-between;
 }
 
 .top-leaderboard {

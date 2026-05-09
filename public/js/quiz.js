@@ -156,7 +156,6 @@ function showQuestion(index) {
         const progressPercentage = ((index) / currentQuestions.length) * 100
         const persistentHeader = document.getElementById("quiz-persistent-header")
         persistentHeader.style.cssText = "display: flex; flex-direction: column; gap: 8px;"
-
         const existingQuizControl = persistentHeader.querySelector(".quiz-control")
         if (existingQuizControl) existingQuizControl.remove()
         
@@ -169,7 +168,7 @@ function showQuestion(index) {
             progression.className = "progression"
             progression.style.cssText = "display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"
             progression.innerHTML = `
-                <div class="progress-bar" style="width:100%;height:16px;background-color:#e0e0e0;border-radius:16px;overflow:hidden;">
+                <div class="progress-bar" style="width:100%;height:16px;background-color:#e5e5e5;border-radius:16px;overflow:hidden;">
                     <div class="progress-bar-fill" style="width:0%;height:100%;background-color:#4CAF50;transition:width 250ms ease;"></div>
                 </div>
             `
@@ -202,6 +201,10 @@ function showQuestion(index) {
                     <input type="radio" name="question-${index}" value="${answer}" ${isChecked}>
                     <div class="answer-option-content">
                         <p>${decodeHtml(answer)}</p>
+                        <div id="correct" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg></div>
+                        <div id="incorrect" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div>
+                        <audio src="/sound/correct-answer-alert1.mp3" id="correct-sound">
+                        <audio src="/sound/incorrect-answer-alert1.mp3" id="incorrect-sound">
                     </div>
                 </label>`
                 }
@@ -239,25 +242,29 @@ function showQuestion(index) {
             nextBtn.innerHTML = `<p>Check</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>`
             nextBtn.style.background = ""
         } else {
-            nextBtn.textContent = "Submit Quiz"
+            nextBtn.innerHTML = `<p>Check</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>`
             nextBtn.style.background = ""
         }
         nextBtn.style.cursor = "pointer";
         nextBtn.onclick = () => {
             saveCurrentAnswer()
-            if (index < currentQuestions.length - 1) {
-                if (!isAnswerChecked) {
-                    // First click - check the answer
-                    checkAnswer(index)
-                    // Change button to "Next"
-                    isAnswerChecked = true
+            if (!isAnswerChecked) {
+                // First click - check the answer
+                checkAnswer(index)
+                // Change button to "Next" or "Submit"
+                isAnswerChecked = true
+                if (index < currentQuestions.length - 1) {
                     nextBtn.innerHTML = `<p>Next</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-step-forward-icon lucide-step-forward"><path d="M10.029 4.285A2 2 0 0 0 7 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/><path d="M3 4v16"/></svg>`
                 } else {
-                    // Second click - go to next question
-                    showQuestion(index + 1)
+                    nextBtn.innerHTML = `<p style="text-wrap:nowrap;">Submit Quiz</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>`
                 }
             } else {
-                submitQuiz()
+                // Second click - go to next question or submit
+                if (index < currentQuestions.length - 1) {
+                    showQuestion(index + 1)
+                } else {
+                    submitQuiz()
+                }
             }
         }
 
@@ -319,25 +326,27 @@ function checkAnswer(index) {
   
   radioButtons.forEach((radio) => {
     const label = radio.closest('.answer-option')
+    const content = label.querySelector('.answer-option-content')
     
     if (radio.value === selectedAnswer) {
       // Selected answer
       if (isCorrect) {
-        // Correct answer
-        label.classList.add('feedback-correct')
-        label.style.opacity = '1'
+        // Correct answer - show correct indicator
+        const correctIndicator = content.querySelector('#correct')
+        const correctSound = content.querySelector('#correct-sound')
+        if (correctIndicator) correctIndicator.style.display = 'flex'
+        correctSound.play()
       } else {
-        // Incorrect answer
-        label.classList.add('feedback-incorrect')
-        label.style.opacity = '1'
+        // Incorrect answer - show incorrect indicator
+        const incorrectIndicator = content.querySelector('#incorrect')
+        const incorrectSound = content.querySelector('#incorrect-sound')
+        if (incorrectIndicator) incorrectIndicator.style.display = 'flex'
+        incorrectSound.play()
       }
     } else if (radio.value === correctAnswer) {
       // Show the correct answer even if not selected
-      label.classList.add('feedback-correct')
-    //   label.style.opacity = '0.7'
-    } else {
-      // Other wrong answers
-    //   label.style.opacity = '0.4'
+      const correctIndicator = content.querySelector('#correct')
+      if (correctIndicator) correctIndicator.style.display = 'flex'
     }
     
     // Disable further selection
@@ -407,6 +416,10 @@ function displayResults(data) {
     `
   container.appendChild(scoreDiv)
 
+  const resultContainer = document.createElement("div")
+  resultContainer.className = "result-container"
+  container.appendChild(resultContainer)
+
   data.results.forEach((result, index) => {
     console.log(`Question ${index + 1}:`, result.correct, typeof result.correct)
     const resultDiv = document.createElement("div")
@@ -416,7 +429,7 @@ function displayResults(data) {
             <p><strong>Your answer:</strong> ${decodeHtml(result.userAnswer)}</p>
             <p><strong>Correct answer:</strong> ${decodeHtml(result.correctAnswer)}</p>
         `
-    container.appendChild(resultDiv)
+    resultContainer.appendChild(resultDiv)
   })
 
   // Add button container
@@ -427,7 +440,8 @@ function displayResults(data) {
   const nextBtn = document.createElement("button")
   nextBtn.textContent = "View Leaderboard"
   nextBtn.id = "leaderboard-btn"
-  nextBtn.style.background = "#007bff"
+  nextBtn.style.display = "flex"
+  nextBtn.style.flexGrow = 1;
   nextBtn.addEventListener('click', () => showLeaderboard(data))
   buttonContainer.appendChild(nextBtn)
 
@@ -437,7 +451,6 @@ function displayResults(data) {
   resetButton.id = "reset-results-btn"
   resetButton.style.background = "#6c757d"
   resetButton.addEventListener('click', resetQuiz)
-  buttonContainer.appendChild(resetButton)
 
   container.appendChild(buttonContainer)
 }
@@ -499,7 +512,6 @@ function showLeaderboard() {
   const backBtn = document.createElement("button")
   backBtn.textContent = "Take Another Quiz"
   backBtn.id = "back-btn"
-  backBtn.style.background = "#007bff"
   backBtn.addEventListener('click', resetQuiz)
   buttonContainer.appendChild(backBtn)
 
@@ -510,9 +522,10 @@ function resetQuiz() {
   const container = document.getElementById("quiz-container")
   container.innerHTML = ""
   document.getElementById("quiz-persistent-header").innerHTML = ""
+  document.getElementById("quiz-persistent-header").style.display = "none"
   currentQuestions = []
   userAnswers = []
-  document.querySelector('.quiz-configuration').style.display = "block";
+  document.querySelector('.quiz-configuration').style.display = "flex";
   const navContainer = document.querySelector('.nav-container')
   navContainer.style.display = "none";
   if (window.matchMedia('(max-width: 700px)').matches) {
@@ -567,7 +580,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const container = document.querySelector(".errorSelect")
 
     if (!selectedAmount || !selectedDifficulty) {
-        container.innerHTML = '<div class="error">Must select both quiz length and difficulty!</div>';
+        container.style.display = "flex"
+        container.innerHTML = '<div class="error"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert-icon lucide-triangle-alert"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><p>Must select both quiz length and difficulty!</p></div>';
         return;
     } else {
         container.innerHTML = '';

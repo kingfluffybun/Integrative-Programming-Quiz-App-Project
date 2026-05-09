@@ -13,7 +13,7 @@
     .main {overflow-y: none; min-height: 0;}
     .main::-webkit-scrollbar {display: none;}
 
-    .container {overflow-y: hidden;}
+    .container {overflow-y: auto;}
 
     .site-header {
         grid-area: header;
