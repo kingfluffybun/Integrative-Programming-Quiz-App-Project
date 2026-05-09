@@ -223,7 +223,7 @@ function showQuestion(index) {
         prevBtn.className = "prevBtn";
         prevBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-step-back-icon lucide-step-back"><path d="M13.971 4.285A2 2 0 0 1 17 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z"/><path d="M21 20V4"/></svg><p>Previous</p>`
         prevBtn.disabled = index === 0
-        prevBtn.style.color = index === 0 ? "white" : ""
+        prevBtn.style.color = index === 0 ? "white" : "#333"
         prevBtn.style.background = index === 0 ? "#6c757d" : ""
         prevBtn.style.cursor = index === 0 ? "not-allowed" : "pointer"
         prevBtn.onclick = () => {

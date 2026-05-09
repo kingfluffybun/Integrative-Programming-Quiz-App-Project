@@ -288,6 +288,10 @@ input[type=radio]:checked + .num-question-content .circle {
     flex: 1;
 }
 
+.nextBtn, #leaderboard-btn, #back-btn {
+    background-color: var(--primary-color);
+}
+
 .quiz-configuration {
     display: flex;
     flex-direction: column;
@@ -339,14 +343,14 @@ button {
 }
 
 button:hover {
-  background: #0056b3;
+  background: var(--primary-color);
 }
 
 .question {
     position: relative;
   padding: 32px;
   border-radius: 8px;
-  background: #e0e0e0;
+  background: var(--primary-color);
   max-width: 800px;
   width: 100%;
   min-height: 200px;
@@ -363,7 +367,7 @@ button:hover {
 
 .question h2 {
   margin-top: 0;
-  color: #333;
+  color: white;
   font-size: 1.25rem;
 }
 
@@ -409,7 +413,7 @@ button:hover {
 
 .answer-option input[type="radio"] {display: none;}
 .answer-option input[type="radio"]:checked + .answer-option-content {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
 }
 
@@ -503,7 +507,7 @@ button:hover {
     flex-direction: column;
     gap: 12px;
     overflow-y: scroll;
-    height: calc(100vh - 300px);
+    height: calc(100vh - 328px);
     padding: 12px;
     border-radius: 8px;
 }
