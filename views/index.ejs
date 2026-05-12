@@ -1,32 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-        <%= title %>
-    </title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/css/themes.css">
     <link rel="stylesheet" href="/css/mobile.css">
+    <link rel="stylesheet" href="/css/homepage.css">
 </head>
 
 <body>
-    
+
     <%- include('sidebar') %>
 
     <div class="main">
-        <div class="container">
-            <h1>Home</h1>
-            <p> This application uses the Open Trivia Database (OpenTDB) to load trivia questions dynamically through a backend proxy. </p>
-            <ul>
-                <li>Frontend fetches: <code>/api/quiz/questions</code></li>
-                <li> Backend controller uses OpenTDB API: <code>https://opentdb.com/api.php</code> </li>
-                <li>Results are displayed on the quiz interface</li>
-            </ul>
-            <p>Get started by taking a quiz on the <a href="/quiz">quiz</a> page.</p>
-            <p> Learn more about this Express app on the <a href="/about">About</a> page. </p>
+        <div class="homepage">
+            <section class="hero">
+                <div class="hero-background"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">QuizToon</h1>
+                    <p class="hero-description">Test your knowledge and have fun with exciting quizzes</p>
+                    <a href="/quiz" class="btn-primary">Start Quiz</a>
+                </div>
+            </section>
+
+            <section class="quiz-section">
+                <h2>Featured Quiz</h2>
+                <div class="quiz-card">
+                    <div class="quiz-icon"><svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24"><path fill="#F7668F" d="M18.5 2a4.5 4.5 0 0 1 .883 8.913a8 8 0 1 1-14.765-.001A4.499 4.499 0 0 1 5.5 2a4.5 4.5 0 0 1 4.493 4.254A7.998 7.998 0 0 1 12 6a7.99 7.99 0 0 1 2.006.254A4.5 4.5 0 0 1 18.5 2Z"/></svg></div>
+                    <h3>Cartoons Quiz</h3>
+                    <p>Test your knowledge about classic and modern cartoons. Fun, nostalgic, and entertaining questions about animated characters, shows, and memorable moments.</p>
+                    <div class="quiz-meta">
+                        <div class="meta-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M12 17h.01"/><path d="M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3"/></svg> Cartoon Questions</div>
+                        <div class="meta-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg> Quick Challenge</div>
+                    </div>
+                    <a href="/quiz" class="btn-secondary">Take the Quiz</a>
+                </div>
+            </section>
+
+            <section class="why-section">
+                <h2>Why Take the Cartoons Quiz?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v1"/><path d="M12 6a2 2 0 0 1 2 2"/><path d="M18 8c0 4-3.5 8-6 8s-6-4-6-8a6 6 0 0 1 12 0"/></svg></div>
+                        <h4>Fun & Nostalgic</h4>
+                        <p>Relive childhood memories with classic cartoon references and beloved characters</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg></div>
+                        <h4>Boost Knowledge</h4>
+                        <p>Enhance your trivia skills and discover fascinating facts about animation history</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="m9 9.5 2 2 4-4"/></svg></div>
+                        <h4>Learn & Discover</h4>
+                        <p>Test your memory and learn new things about animated series worldwide</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="how-section">
+                <h2>How It Works</h2>
+                <div class="steps-grid">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Choose Quiz</h4>
+                        <p>Select the Cartoons Quiz to get started</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Answer Questions</h4>
+                        <p>Answer fun questions about cartoons</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Get Score</h4>
+                        <p>See your results and challenge yourself</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h4>Share & Compete</h4>
+                        <p>Compare scores with friends and improve</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features-section">
+                <h2>Why Choose Us?</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg></div>
+                        <h4>Easy to Use</h4>
+                        <p>Simple interface designed for everyone, no complicated steps</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg></div>
+                        <h4>Fun Questions</h4>
+                        <p>Engaging and entertaining trivia that keeps you entertained</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div>
+                        <h4>Instant Results</h4>
+                        <p>Get immediate feedback on your performance</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="quick-start">
+                <div class="quick-start-content">
+                    <h2>Ready to Test Your Cartoon Knowledge?</h2>
+                    <p>Start your Cartoons Quiz now and have fun!</p>
+                    <a href="/quiz" class="btn-cta">Start Quiz Now</a>
+                </div>
+            </section>
+
+            <section class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>How long is the quiz?</h4>
+                        <p>The Cartoons Quiz typically takes 10-15 minutes to complete depending on your pace</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Can I retake the quiz?</h4>
+                        <p>Yes! You can retake the quiz as many times as you want to improve your score</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Is the quiz free?</h4>
+                        <p>Absolutely! All our quizzes are completely free to play</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="simple-footer">
+                <p>Made with ❤︎ by Group 1</p>
+                <div class="credits">
+                    <span>Clarence Jerald G. Luna</span>
+                    <span>Kevenly H. Luistro</span>
+                    <span>Christian Patrick T. Panti</span>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="/js/ui.js"></script>

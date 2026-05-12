@@ -3,6 +3,7 @@ let currentQuestions = []
 let userAnswers = []
 let currentQuestionIndex = 0
 let coinsEarned = 0
+let questionStates = []
 
 // Difficulty score mapping
 const difficultyScores = {
@@ -84,6 +85,11 @@ async function getQuestions() {
 function displayQuestions(questions) {
   currentQuestionIndex = 0
   coinsEarned = 0
+  questionStates = questions.map(() => ({
+    checked: false,
+    isCorrect: false,
+    selectedAnswer: null,
+  }))
   const container = document.getElementById("quiz-container")
   container.innerHTML = ""
 
@@ -132,6 +138,7 @@ function showQuestion(index) {
         if (existingNav) existingNav.remove()
 
         const question = currentQuestions[index]
+        const state = questionStates[index] || { checked: false, isCorrect: false, selectedAnswer: null }
         const questionDiv = document.createElement("div")
         questionDiv.className = "question"
 
@@ -236,21 +243,27 @@ function showQuestion(index) {
         const nextBtn = document.createElement("button")
         nextBtn.className = "nextBtn";
         nextBtn.id = `action-btn-${index}`;
-        let isAnswerChecked = false
+        let isAnswerChecked = state.checked
         
-        if (index < currentQuestions.length - 1) {
-            nextBtn.innerHTML = `<p>Check</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>`
-            nextBtn.style.background = ""
+        if (state.checked) {
+            if (index < currentQuestions.length - 1) {
+                nextBtn.innerHTML = `<p>Next</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-step-forward-icon lucide-step-forward"><path d="M10.029 4.285A2 2 0 0 0 7 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/><path d="M3 4v16"/></svg>`
+            } else {
+                nextBtn.innerHTML = `<p style="text-wrap:nowrap;">Submit Quiz</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>`
+            }
         } else {
             nextBtn.innerHTML = `<p>Check</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>`
-            nextBtn.style.background = ""
         }
+        nextBtn.style.background = ""
         nextBtn.style.cursor = "pointer";
         nextBtn.onclick = () => {
             saveCurrentAnswer()
             if (!isAnswerChecked) {
                 // First click - check the answer
-                checkAnswer(index)
+                const wasChecked = checkAnswer(index)
+                if (!wasChecked) {
+                    return
+                }
                 // Change button to "Next" or "Submit"
                 isAnswerChecked = true
                 if (index < currentQuestions.length - 1) {
@@ -280,6 +293,31 @@ function showQuestion(index) {
             selectAnswer(index, answer)
             })
         })
+
+        if (state.checked) {
+            const correctAnswer = question.correct_answer
+            radioButtons.forEach((radio) => {
+                const label = radio.closest('.answer-option')
+                const content = label.querySelector('.answer-option-content')
+
+                if (radio.value === state.selectedAnswer) {
+                    if (state.isCorrect) {
+                        const correctIndicator = content.querySelector('#correct')
+                        if (correctIndicator) correctIndicator.style.display = 'flex'
+                    } else {
+                        const incorrectIndicator = content.querySelector('#incorrect')
+                        if (incorrectIndicator) incorrectIndicator.style.display = 'flex'
+                    }
+                }
+
+                if (radio.value === correctAnswer) {
+                    const correctIndicator = content.querySelector('#correct')
+                    if (correctIndicator) correctIndicator.style.display = 'flex'
+                }
+
+                radio.disabled = true
+            })
+        }
 
         // Slide in new content
         container.animate(
@@ -316,6 +354,12 @@ function checkAnswer(index) {
   const radioButtons = document.querySelectorAll(`input[name="question-${index}"]`)
   const isCorrect = selectedAnswer === correctAnswer
   
+  questionStates[index] = {
+    checked: true,
+    isCorrect,
+    selectedAnswer,
+  }
+
   // Add points if correct
   if (isCorrect) {
     const difficulty = question.difficulty.toLowerCase()
@@ -353,7 +397,7 @@ function checkAnswer(index) {
     radio.disabled = true
   })
   
-  return isCorrect
+  return true
 }
 
 function updateScoreDisplay() {
@@ -580,6 +624,7 @@ function resetQuiz() {
   document.getElementById("quiz-persistent-header").style.display = "none"
   currentQuestions = []
   userAnswers = []
+  questionStates = []
   document.querySelector('.quiz-configuration').style.display = "flex";
   const navContainer = document.querySelector('.nav-container')
   navContainer.style.display = "none";

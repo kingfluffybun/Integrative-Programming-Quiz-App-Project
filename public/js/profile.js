@@ -99,6 +99,23 @@ function setupSettingsToggles() {
     });
 }
 
+function getConfirmationMessage(field) {
+    const messages = {
+        fullName: 'Are you sure you want to update your Full Name?',
+        email: 'Are you sure you want to update your Email Address?',
+        password: 'Are you sure you want to update your Password?'
+    };
+    return messages[field] || 'Are you sure you want to make this change?';
+}
+
+function showConfirmationDialog(field, value) {
+    return new Promise((resolve) => {
+        const message = getConfirmationMessage(field);
+        const userConfirmed = confirm(message);
+        resolve(userConfirmed);
+    });
+}
+
 function setupProfileUpdates() {
     document.addEventListener('click', async function (e) {
         if (e.target.classList.contains('btn-save-profile')) {
@@ -109,6 +126,17 @@ function setupProfileUpdates() {
                 const field = e.target.getAttribute('data-field');
                 const value = input.value;
                 const originalText = e.target.textContent;
+
+                if (!value.trim()) {
+                    alert('Please enter a value before saving.');
+                    return;
+                }
+
+                const userConfirmed = await showConfirmationDialog(field, value);
+                
+                if (!userConfirmed) {
+                    return;
+                }
 
                 try {
                     e.target.disabled = true;

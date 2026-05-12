@@ -14,13 +14,13 @@
       <p>Login with your email or username to continue.</p>
     </section>
       <% if (message) { %>
-        <div class="alert alert-success"><%= message %></div>
+        <div class="alert alert-success"><p><%= message %></p></div>
       <% } %>
       <% if (errors && errors.length) { %>
         <div class="alert alert-error">
           <ul>
             <% errors.forEach((error) => { %>
-              <li style="list-style-type: none;"><%= error.msg %></li>
+              <li style="list-style-type: none;"><p><%= error.msg %></p></li>
             <% }) %>
           </ul>
         </div>
