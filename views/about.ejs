@@ -1,36 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/themes.css">
     <link rel="stylesheet" href="/css/mobile.css">
-  </head>
-  <body>
+    <link rel="stylesheet" href="/css/homepage-aboutpage.css">
+</head>
+
+<body>
 
     <%- include('sidebar') %>
-    
+
     <div class="main">
-        <div class="container">
-        <h1>About This Express.js App</h1>
-        <p>
-            This is a simple Express.js quiz application with Node.js and EJS
-            templates.
-        </p>
-        <ul>
-            <li>Routes are defined in <code>routes/quiz.js</code></li>
-            <li>API logic is in <code>controllers/quizController.js</code></li>
-            <li>Front-end script is <code>public/js/quiz.js</code></li>
-            <li>Static assets are served from <code>public/</code></li>
-        </ul>
-        <p>
-            Visit the <a href="/start">Start</a> page to learn how it integrates
-            with OpenTDB.
-        </p>
-        <p>Return to quiz: <a href="/">Home</a></p>
+        <div class="homepage">
+            <section class="hero">
+                <div class="hero-background"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">About QuizToon</h1>
+                    <p class="hero-description">Discover the story behind your favorite quiz platform</p>
+                </div>
+            </section>
+
+            <section class="about-intro">
+                <div class="intro-content">
+                    <h2>What is QuizToon?</h2>
+                    <p>QuizToon is a modern, interactive quiz application dedicated to testing your knowledge about cartoons. Whether you're a casual cartoon fan or a devoted enthusiast, QuizToon offers an exciting platform to challenge yourself with engaging cartoon trivia questions and discover fascinating facts about your favorite animated characters and shows.</p>
+                    <p>Built with modern web technologies, QuizToon combines a sleek, user-friendly interface with smooth functionality to deliver an exceptional cartoon quiz experience.</p>
+                </div>
+            </section>
+
+            <section class="about-purpose">
+                <h2>Our Mission</h2>
+                <div class="purpose-grid">
+                    <div class="purpose-card">
+                        <div class="purpose-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0"/><path d="M9 9h.01"/><path d="M15 9h.01"/><path d="M9 15a3 3 0 0 0 6 0"/></svg>
+                        </div>
+                        <h3>Make Learning Fun</h3>
+                        <p>We believe education should be enjoyable. Every quiz is crafted to be entertaining while challenging your knowledge.</p>
+                    </div>
+                    <div class="purpose-card">
+                        <div class="purpose-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 17"/><polyline points="17 6 23 6 23 12"/></svg>
+                        </div>
+                        <h3>Track Progress</h3>
+                        <p>Monitor your performance, track your scores, and see how much you've improved over time.</p>
+                    </div>
+                    <div class="purpose-card">
+                        <div class="purpose-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <h3>Challenge Yourself</h3>
+                        <p>Test your limits with diverse quiz topics and difficulty levels that keep you engaged and coming back for more.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-features">
+                <h2>What We Offer</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3H9a6 6 0 0 0 0 12h0a6 6 0 0 1 0 12h-6"/><circle cx="17" cy="17" r="3"/></svg>
+                        </div>
+                        <h3>Customizable Themes</h3>
+                        <p>Personalize your experience with multiple themes inspired by your favorite cartoons and entertainment properties.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <h3>Instant Feedback</h3>
+                        <p>Get immediate results and explanations for each quiz to help you learn and improve your knowledge.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+                        </div>
+                        <h3>Leaderboard</h3>
+                        <p>Compete with friends and other players to see who's the ultimate quiz champion!</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <h3>Quick Sessions</h3>
+                        <p>Play at your own pace with customizable quiz lengths and difficulty settings.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        </div>
+                        <h3>Profile Tracking</h3>
+                        <p>Save your progress and performance history. Track your improvements and revisit your favorite cartoon quizzes anytime.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-team">
+                <div class="team-values">
+                    <h2>Our Values</h2>
+                    <div class="value-card">
+                        <h3>Innovation</h3>
+                        <p>We continuously explore new technologies and approaches to deliver cutting-edge features.</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Quality</h3>
+                        <p>Every detail matters. We obsess over code quality, design, and user experience.</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>Community</h3>
+                        <p>We build for our users and value their feedback to constantly improve the platform.</p>
+                    </div>
+                </div>
+
+                <h2>About Our Team</h2>
+                <div class="team-intro">
+                    <p>QuizToon was created by a dedicated group of developers from <strong>Group 1</strong> who are passionate about creating engaging digital experiences. Our team combines expertise in web development, design, and user experience to build applications that people genuinely enjoy using.</p> <br>
+                    <div class="team-members">
+                        <p><strong>Group Members:</strong></p>
+                        <p>Clarence Jerald G. Luna</p>
+                        <p>Kevenly H. Luistro</p>
+                        <p>Christian Patrick T. Panti</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="quick-start">
+                <div class="quick-start-content">
+                    <h2>Ready to Test Your Knowledge?</h2>
+                    <p>Join thousands of quiz enthusiasts and start your journey with QuizToon today.</p>
+                    <a href="/quiz" class="btn-cta">Start Your First Quiz</a>
+                </div>
+            </section>
+
+            <footer class="simple-footer">
+                <div class="footer-main">
+                    <p>Made with <strong>❤︎</strong> by Group 1</p>
+                    <div class="credits">
+                        <span>Clarence Jerald G. Luna</span>
+                        <span>Kevenly H. Luistro</span>
+                        <span>Christian Patrick T. Panti</span>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <span>© 2026 QuizToon. All rights reserved.</span>
+                </div>
+            </footer>
         </div>
     </div>
+
     <script src="/js/ui.js"></script>
-  </body>
+</body>
 </html>
