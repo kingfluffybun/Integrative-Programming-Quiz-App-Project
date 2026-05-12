@@ -169,7 +169,9 @@
 }
 
 .nav-tab:hover {
-    color: var(--primary-color);
+    color: #F7668F;
+    border-bottom-color: #F7668F;
+    background: rgba(247, 102, 143, 0.05);
 }
 
 .nav-tab:focus,
@@ -178,8 +180,8 @@
 }
 
 .nav-tab.active {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
+    color: #F7668F;
+    border-bottom-color: #F7668F;
 }
 
 .profile-content {
