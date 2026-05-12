@@ -6,6 +6,8 @@
     --spongebob-option-color: #FEF76C;
     --powerpuff-girls-option-color: #EF6565;
     --powerpuff-girls-container-color: #D11560;
+    --toy-story-option-color: #16367F;
+    --toy-story-container-color: #FAC22B;
 }
 
 @media (max-width: 700px) {
@@ -93,10 +95,11 @@
     .result-container {
         background-color: var(--snoopy-container-color);
         border: 2px solid black;
+        h2 {color: #333;}
     }
 
     .leaderboard-header, .result-container {
-        h3 {color: #A96B22; text-align: center;}
+        h3 {color: white; text-align: center;}
     }
 
     .leaderboard-container {
@@ -104,7 +107,8 @@
     }
 
     .leaderboard-position, .question-num {
-        background-color:#A96B22 ;
+        background-color:#A96B22;
+        color: white;
         h2, p { color: var(--snoopy-container-color) !important;} 
     }
 
@@ -168,6 +172,10 @@
         p, strong, h4 {color: white;}
     }
 
+    .leaderboard-player, .result {
+        background-color: #A96B22;
+    }
+
     /* .answer-option:hover .answer-option-content {
         background-color: #8B5E3C;
     } */
@@ -191,10 +199,11 @@
     .result-container {
         background-color: var(--adventure-time-container-color);
         border: 2px solid black;
+        h2 {color: white;}
     }
 
     .leaderboard-header, .result-container {
-        h3 {color: white; text-align: center;}
+        h2 {color: white;}
     }
 
     .leaderboard-container {
@@ -202,8 +211,8 @@
     }
 
     .leaderboard-position, .question-num {
-        background-color:#A96B22 ;
-        h2{ color: white !important;} 
+        background-color:var(--adventure-time-container-color) ;
+        h3 {color: white !important;} 
     }
 
     .quiz-control {
@@ -421,4 +430,105 @@
         color: white !important;
     }
 }
-
+
+.toystory {     
+    .main {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url(../wallpapers/toystory2.png);
+    background-color: #001870;
+    background-size: 562px auto;
+    background-repeat: repeat;
+    background-position: bottom;
+    }
+
+    .quiz-configuration {
+        h1, h2 {color: #001870;}
+    }
+
+    input[type=radio]:active + .num-question-content {
+    border-bottom: 2px solid #001870;
+    border-color: #001870;
+    color: #001870;
+    h3, p {color: #001870;}
+    }
+
+    input[type=radio]:active + .num-question-content .circle {
+        border-color: #001870;
+        border: solid 6px;
+    }
+
+    input[type=radio]:checked + .num-question-content {
+        border-color: #001870;
+        h3, p, svg {color: #001870;}
+        svg {fill: currentColor;}
+    }
+
+    input[type=radio]:checked + .num-question-content .circle {
+        border-color: #001870;
+        border: solid 6px;
+        color: #001870;
+    }
+
+    #start-quiz-btn {background-color: #001870;}
+
+    .question {
+        background-color: var(--toy-story-container-color);
+        border: 4px solid var(--toy-story-option-color);
+        h2 {color: #001870;}
+    }
+
+    .answer-option-content, .leaderboard-player, .result {
+        background-color: var(--toy-story-option-color);
+        border-width: 2px 2px 4px 2px;
+        border-style: solid;
+        border-color: #001870;
+        p {font-weight: 650;}
+        p, strong, h4 {color: #53B1F0;}
+    }
+
+    .leaderboard-player, .result {
+        background-color: var(--toy-story-option-color);
+    }
+
+    /* .answer-option:hover .answer-option-content {
+        background-color: #8B5E3C;
+    } */
+
+    .answer-option:active .answer-option-content {
+        border-bottom: 2px solid #001870;
+    }
+
+    input[type="radio"]:checked + .answer-option-content {
+        background-color: var(--toy-story-container-color);
+        p {color: #001870 !important;}
+    }
+
+    .nextBtn, .prevBtn, #leaderboard-btn, #back-btn {
+        background-color: var(--toy-story-container-color);
+        color: #001870 !important;
+        font-weight: 700;
+    }
+
+    .result-container {
+        background-color: var(--toy-story-container-color);
+        border: 4px solid #001870;
+        h2 {color: #001870;}
+    }
+
+    .leaderboard-header, .result-container {
+        h2 {color: #001870;}
+    }
+
+    .leaderboard-container {
+        background-color: var(--toy-story-container-color);
+    }
+
+    .leaderboard-position, .question-num {
+        background-color:var(--toy-story-container-color);
+        border: 2px solid #001870   ;
+        h3 {color: #001870 !important;} 
+    }
+
+    .quiz-control {
+        color: white !important;
+    }
+}
