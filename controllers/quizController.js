@@ -156,6 +156,7 @@ const submitQuiz = async (req, res) => {
             percentage: score,
             correct,
             total: questions.length,
+            difficulty: questions[0].difficulty || 'easy',
             results
         })
     } catch (error) {
@@ -167,8 +168,37 @@ const submitQuiz = async (req, res) => {
     }
 }
 
+const getLeaderboard = async (req, res) => {
+    try {
+        const { difficulty, total_questions } = req.query;
+        
+        if (!difficulty || !total_questions) {
+            return res.status(400).json({ success: false, error: 'Difficulty and total_questions are required' });
+        }
+
+        const db = require('../database/connection');
+        const [rows] = await db.query(`
+            SELECT u.username, s.score, s.taken_at 
+            FROM scores s 
+            JOIN users u ON s.user_id = u.id 
+            WHERE s.difficulty = ? AND s.total_questions = ?
+            ORDER BY s.score DESC, s.taken_at ASC 
+            LIMIT 10
+        `, [difficulty, total_questions]);
+
+        res.json({
+            success: true,
+            leaderboard: rows
+        });
+    } catch (error) {
+        console.error('Error fetching leaderboard:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch leaderboard' });
+    }
+}
+
 module.exports = {
     getQuestions,
     getCategories,
-    submitQuiz
+    submitQuiz,
+    getLeaderboard
 }

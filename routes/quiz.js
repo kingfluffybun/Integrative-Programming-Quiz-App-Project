@@ -1,6 +1,6 @@
 const express = require('express')
 const { query, body } = require('express-validator')
-const { getQuestions, getCategories, submitQuiz } = require('../controllers/quizController')
+const { getQuestions, getCategories, submitQuiz, getLeaderboard } = require('../controllers/quizController')
 
 const router = express.Router()
 
@@ -19,5 +19,8 @@ router.post('/submit', [
     body('answers').isArray(),
     body('questions').isArray()
 ], submitQuiz)
+
+// Get leaderboard
+router.get('/leaderboard', getLeaderboard)
 
 module.exports = router

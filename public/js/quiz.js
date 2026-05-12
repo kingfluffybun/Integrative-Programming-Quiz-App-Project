@@ -508,7 +508,7 @@ function displayResults(data) {
   container.appendChild(buttonContainer)
 }
 
-function showLeaderboard() {
+function showLeaderboard(quizData) {
   const container = document.getElementById("quiz-container")
   container.innerHTML = ""
 
@@ -516,47 +516,91 @@ function showLeaderboard() {
   const leaderboardDiv = document.createElement("div")
   leaderboardDiv.className = "leaderboard-container"
   leaderboardDiv.id = "leaderboard"
+  
+  const difficultyLabel = quizData.difficulty.charAt(0).toUpperCase() + quizData.difficulty.slice(1);
+  
   leaderboardDiv.innerHTML = `
     <div class="leaderboard-header">
       <h2>Leaderboard</h2>
+      <p style="color: #666; font-size: 14px; margin-top: 5px;">${quizData.total} Questions • ${difficultyLabel}</p>
     </div>
-    <div>
-    <div class="leaderboard-content">
-        <div class="top-leaderboard">
-            <div class="top-leaderboard-player" id="second"><h2>2nd</h2><p>4000</p></div>
-            <div class="top-leaderboard-player" id="first"><h2>1st</h2><p>5000</p></div>
-            <div class="top-leaderboard-player" id="third"><h2>3rd</h2><p>3500</p></div>
-        </div> <br>
-        <div class="leaderboard-player">
-            <div class="player-info">
-                <div class="leaderboard-position">
-                    <h3>4</h3>
-                </div>
-                <p>Player 4</p>
-            </div>
-            <p>3000</p>
-        </div>
-        <div class="leaderboard-player">
-            <div class="player-info">
-                <div class="leaderboard-position">
-                    <h3>5</h3>
-                </div>
-                <p>Player 5</p>
-            </div>
-            <p>3000</p>
-        </div>
-        <div class="leaderboard-player">
-            <div class="player-info">
-                <div class="leaderboard-position">
-                    <h3>6</h3>
-                </div>
-                <p>Player 6</p>
-            </div>
-            <p>3000</p>
-        </div>
+    <div class="leaderboard-content" id="leaderboard-list">
+        <div class="loading"><div class="spinner"></div></div>
     </div>
   `
   container.appendChild(leaderboardDiv)
+
+  // Fetch leaderboard data
+  fetch(`/api/quiz/leaderboard?total_questions=${quizData.total}&difficulty=${quizData.difficulty}`)
+    .then(response => response.json())
+    .then(data => {
+      const listContainer = document.getElementById("leaderboard-list");
+      if (data.success) {
+        if (data.leaderboard.length === 0) {
+            listContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #666;">No scores yet for this configuration. Be the first!</p>';
+        } else {
+            let html = '';
+            const topThree = data.leaderboard.slice(0, 3);
+            const others = data.leaderboard.slice(3);
+
+            html += `<div class="top-leaderboard">`;
+            
+            // 2nd place
+            const second = topThree[1];
+            html += `
+                <div class="top-leaderboard-player" id="second">
+                    <h2>2nd</h2>
+                    <span style="font-size: 14px; font-weight: 700; text-align: center; line-height: 1.2;">${second ? second.username : '-'}</span>
+                    <p style="font-size: 18px; font-weight: 800;">${second ? second.score : 0}</p>
+                </div>`;
+            
+            // 1st place
+            const first = topThree[0];
+            html += `
+                <div class="top-leaderboard-player" id="first">
+                    <h2>1st</h2>
+                    <span style="font-size: 16px; font-weight: 700; text-align: center; line-height: 1.2;">${first ? first.username : '-'}</span>
+                    <p style="font-size: 22px; font-weight: 800;">${first ? first.score : 0}</p>
+                </div>`;
+            
+            // 3rd place
+            const third = topThree[2];
+            html += `
+                <div class="top-leaderboard-player" id="third">
+                    <h2>3rd</h2>
+                    <span style="font-size: 13px; font-weight: 700; text-align: center; line-height: 1.2;">${third ? third.username : '-'}</span>
+                    <p style="font-size: 16px; font-weight: 800;">${third ? third.score : 0}</p>
+                </div>`;
+            
+            html += `</div> <br>`;
+
+            others.forEach((player, index) => {
+              html += `
+                <div class="leaderboard-player">
+                    <div class="player-info">
+                        <div class="leaderboard-position">
+                            <h3>${index + 4}</h3>
+                        </div>
+                        <p>${player.username}</p>
+                    </div>
+                    <p>${player.score}</p>
+                </div>
+              `;
+            });
+            
+            listContainer.innerHTML = html;
+        }
+      } else {
+        listContainer.innerHTML = `<p class="error">Error: ${data.error}</p>`;
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching leaderboard:", error);
+      const listContainer = document.getElementById("leaderboard-list");
+      if (listContainer) {
+          listContainer.innerHTML = '<p class="error">Failed to load leaderboard. Please try again.</p>';
+      }
+    });
 
   // Add back button
   const buttonContainer = document.createElement("div")
@@ -566,6 +610,7 @@ function showLeaderboard() {
   const backBtn = document.createElement("button")
   backBtn.textContent = "Take Another Quiz"
   backBtn.id = "back-btn"
+  backBtn.style.flexGrow = 1;
   backBtn.addEventListener('click', resetQuiz)
   buttonContainer.appendChild(backBtn)
 
