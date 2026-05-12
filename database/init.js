@@ -39,9 +39,9 @@ async function initDB() {
             )
         `);
 
-        // Create user_themes table
+        // Create themes table
         await db.query(`
-            CREATE TABLE IF NOT EXISTS user_themes (
+            CREATE TABLE IF NOT EXISTS themes (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 user_id INT NOT NULL,
                 theme_name VARCHAR(50) NOT NULL,

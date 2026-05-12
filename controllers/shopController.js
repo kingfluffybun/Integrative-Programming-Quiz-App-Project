@@ -16,7 +16,7 @@ const purchaseTheme = async (req, res) => {
 
         // Check if user already owns the theme
         const [existing] = await db.query(
-            'SELECT * FROM user_themes WHERE user_id = ? AND theme_name = ?',
+            'SELECT * FROM themes WHERE user_id = ? AND theme_name = ?',
             [userId, themeName]
         );
 
@@ -37,7 +37,7 @@ const purchaseTheme = async (req, res) => {
 
         // Process purchase
         await db.query('UPDATE users SET coins = coins - ? WHERE id = ?', [themeCost, userId]);
-        await db.query('INSERT INTO user_themes (user_id, theme_name) VALUES (?, ?)', [userId, themeName]);
+        await db.query('INSERT INTO themes (user_id, theme_name) VALUES (?, ?)', [userId, themeName]);
 
         res.json({ 
             success: true, 
@@ -58,7 +58,7 @@ const getShop = async (req, res) => {
 
         if (userId) {
             const [themes] = await db.query(
-                'SELECT theme_name FROM user_themes WHERE user_id = ?',
+                'SELECT theme_name FROM themes WHERE user_id = ?',
                 [userId]
             );
             ownedThemes = themes.map(t => t.theme_name);

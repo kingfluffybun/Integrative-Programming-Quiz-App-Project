@@ -104,22 +104,29 @@
                 <div class="customization-section">
                     <h4>Change Themes</h4>
                     <div class="themes-grid">
-                        <div class="theme-card active" data-theme="snoopy">
-                            <div class="theme-preview snoopy-preview"></div>
-                            <p>Snoopy</p>
-                        </div>
-                        <div class="theme-card" data-theme="adventure-time">
-                            <div class="theme-preview adventure-preview"></div>
-                            <p>Adventure Time</p>
-                        </div>
-                        <div class="theme-card" data-theme="spongebob">
-                            <div class="theme-preview spongebob-preview"></div>
-                            <p>SpongeBob</p>
-                        </div>
-                        <div class="theme-card" data-theme="powerpuff-girls">
-                            <div class="theme-preview powerpuff-preview"></div>
-                            <p>Powerpuff Girls</p>
-                        </div>
+                        <% 
+                            const availableThemes = [
+                                { id: 'snoopy', name: 'Snoopy', previewClass: 'snoopy-preview' },
+                                { id: 'adventure-time', name: 'Adventure Time', previewClass: 'adventure-preview' },
+                                { id: 'spongebob', name: 'SpongeBob', previewClass: 'spongebob-preview' },
+                                { id: 'powerpuff-girls', name: 'Powerpuff Girls', previewClass: 'powerpuff-preview' }
+                            ];
+                        %>
+                        <% availableThemes.forEach(theme => { %>
+                            <div class="theme-card <%= (ownedThemes && ownedThemes.includes(theme.id)) ? '' : 'locked' %>" data-theme="<%= theme.id %>">
+                                <div class="theme-preview <%= theme.previewClass %>">
+                                    <% if (!(ownedThemes && ownedThemes.includes(theme.id))) { %>
+                                        <div class="lock-overlay">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                            </svg>
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <p><%= theme.name %></p>
+                            </div>
+                        <% }); %>
                     </div>
                 </div>
 

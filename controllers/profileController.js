@@ -35,10 +35,17 @@ const getProfile = async (req, res) => {
             highestScore = Math.max(...scores.map(s => s.score));
         }
 
+        const [ownedThemesRows] = await db.query(
+            'SELECT theme_name FROM themes WHERE user_id = ?',
+            [req.session.userId]
+        );
+        const ownedThemes = ownedThemesRows.map(t => t.theme_name);
+
         res.render('profile', {
             title: 'Profile - Express Quiz App',
             user: user,
             scores: scores,
+            ownedThemes: ownedThemes,
             stats: {
                 avgScore,
                 totalQuizzes: scores.length,

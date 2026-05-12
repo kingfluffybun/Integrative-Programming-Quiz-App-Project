@@ -367,6 +367,41 @@
     margin: 0;
 }
 
+.theme-card.locked {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.theme-card.locked .theme-preview {
+    filter: grayscale(0.8);
+    position: relative;
+}
+
+.theme-card.locked:hover {
+    transform: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    border-color: #e0e0e0;
+}
+
+.lock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: white;
+}
+
+.lock-overlay svg {
+    width: 24px;
+    height: 24px;
+}
+
 .sounds-options {
     display: flex;
     flex-direction: column;
