@@ -48,6 +48,76 @@
     color: #6b7280;
 }
 
+.profile-password-wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: stretch;
+}
+
+.profile-password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.profile-password-field .profile-input {
+    padding-right: 36px;
+    width: 100%;
+}
+
+.profile-password-toggle {
+    position: absolute;
+    right: 8px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 6px 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    min-width: 32px;
+    min-height: 32px;
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    z-index: 10;
+    pointer-events: auto;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: color 200ms ease;
+}
+
+.profile-password-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+.profile-password-toggle:hover,
+.profile-password-toggle:focus,
+.profile-password-toggle:active {
+    outline: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    appearance: none;
+    color: #6b7280;
+}
+
+.profile-password-toggle:focus-visible {
+    outline: 2px solid #dc3546;
+    outline-offset: 2px;
+}
+
+.toggle-icon.hidden {
+    display: none;
+}
+
 .profile-section {
     display: flex;
     flex-direction: column;
@@ -912,6 +982,15 @@
     .themes-grid {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
+
+    .profile-password-field .profile-input {
+        padding-right: 32px;
+    }
+
+    .profile-password-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 @media (max-width: 700px) {
@@ -1025,6 +1104,21 @@
 
     .theme-preview {
         height: 60px;
+    }
+
+    .profile-password-field .profile-input {
+        padding-right: 30px;
+    }
+
+    .profile-password-toggle {
+        padding: 5px 6px;
+        min-width: 28px;
+        min-height: 28px;
+    }
+
+    .profile-password-toggle svg {
+        width: 16px;
+        height: 16px;
     }
 }
 
