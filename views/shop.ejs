@@ -23,65 +23,77 @@
             <!-- Paayos neto -->
             <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 20px; color: var(--primary-color);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
-                <p style="font-family: FeatherBold;" id="user-coins"><%= user ? user.coins : 0 %></p>
+                <p style="font-family: FeatherBold; font-size: 20px;" id="user-coins"><%= user ? user.coins : 0 %></p>
             </div>
             <!-- To here -->
             
             <div class="themes-section">
                 <div class="cartoon-container" style="background-color: var(--snoopy-container-color);">
                     <img src="/shop/snoopy.png" alt="">
-                    <div>
+                    <div class="cartoon-content">
                         <h2>Peanuts</h2>
                         <!-- Paayos -->
                         <% if (typeof ownedThemes !== 'undefined' && ownedThemes.includes('snoopy')) { %>
-                            <button class="buy-btn" data-theme="snoopy" disabled style="color: var(--snoopy-container-color); opacity: 0.7; cursor: not-allowed;">Owned</button>
+                            <button class="buy-btn" data-theme="snoopy" disabled style="color: var(--snoopy-container-color); opacity: 0.7; cursor: not-allowed;"><p>Owned</p></button>
                         <% } else { %>
-                            <button class="buy-btn" data-theme="snoopy" style="color: var(--snoopy-container-color);">Buy
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
-                                2000
+                            <button class="buy-btn" data-theme="snoopy" style="color: var(--snoopy-container-color);">
+                                <p>Buy</p>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                                    <p>2000</p>
+                                </div>
                             </button>
                         <% } %>
                     </div>
                 </div>
                 <div class="cartoon-container" style="background-color: var(--powerpuff-girls-container-color);">
                     <img src="/shop/powerpuffgirls.png" alt="">
-                    <div>
+                    <div class="cartoon-content">
                         <h2>PowerPuff Girls</h2>
                         <!-- Paayos -->
                         <% if (typeof ownedThemes !== 'undefined' && ownedThemes.includes('powerpuff-girls')) { %>
-                            <button class="buy-btn" data-theme="powerpuff-girls" disabled style="color: var(--powerpuff-girls-container-color); opacity: 0.7; cursor: not-allowed;">Owned</button>
+                            <button class="buy-btn" data-theme="powerpuff-girls" disabled style="color: var(--powerpuff-girls-container-color); opacity: 0.7; cursor: not-allowed;"><p>Owned</p></button>
                         <% } else { %>
-                            <button class="buy-btn" data-theme="powerpuff-girls" style="color: var(--powerpuff-girls-container-color);">Buy
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
-                                2000
+                            <button class="buy-btn" data-theme="powerpuff-girls" style="color: var(--powerpuff-girls-container-color);">
+                                <p>Buy</p>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                                    <p>2000</p>
+                                </div>
                             </button>
                         <% } %>
                     </div>
                 </div>
                 <div class="cartoon-container" style="background-color: var(--spongebob-container-color);">
                     <img src="/shop/spongebob.png" alt="">
-                    <div>
+                    <div class="cartoon-content">
                         <h2>Spongebob</h2>
                         <% if (typeof ownedThemes !== 'undefined' && ownedThemes.includes('spongebob')) { %>
-                            <button class="buy-btn" data-theme="spongebob" disabled style="color: var(--spongebob-container-color); opacity: 0.7; cursor: not-allowed;">Owned</button>
+                            <button class="buy-btn" data-theme="spongebob" disabled style="color: var(--spongebob-container-color); opacity: 0.7; cursor: not-allowed;"><p>Owned</p></button>
                         <% } else { %>
-                            <button class="buy-btn" data-theme="spongebob" style="color: var(--spongebob-container-color);">Buy
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
-                                2000
+                            <button class="buy-btn" data-theme="spongebob" style="color: var(--spongebob-container-color);">
+                                <p>Buy</p>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                                    <p>2000</p>
+                                </div>
                             </button>
                         <% } %>
                     </div>
                 </div>
                 <div class="cartoon-container" style="background-color: var(--adventure-time-container-color);">
                     <img src="/shop/adventuretime.png" alt="" >
-                    <div>
+                    <div class="cartoon-content">
                         <h2>Adventure Time</h2>
                         <% if (typeof ownedThemes !== 'undefined' && ownedThemes.includes('adventure-time')) { %>
-                            <button class="buy-btn" data-theme="adventure-time" disabled style="color: var(--adventure-time-container-color); opacity: 0.7; cursor: not-allowed;">Owned</button>
+                            <button class="buy-btn" data-theme="adventure-time" disabled style="color: var(--adventure-time-container-color); opacity: 0.7; cursor: not-allowed;"><p>Owned</p></button>
                         <% } else { %>
-                            <button class="buy-btn" data-theme="adventure-time" style="color: var(--adventure-time-container-color);">Buy
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
-                                2000
+                            <button class="buy-btn" data-theme="adventure-time" style="color: var(--adventure-time-container-color);">
+                                <p>Buy</p>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                                    <p>2000</p>
+                                </div>
                             </button>
                         <% } %>
                     </div>
