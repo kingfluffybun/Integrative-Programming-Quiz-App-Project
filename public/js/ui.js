@@ -18,6 +18,13 @@ window.addEventListener("click", function(event) {
 });
 
 document.addEventListener("DOMContentLoaded", function(showMenu) {
+    // Apply saved theme
+    const savedTheme = localStorage.getItem('selectedTheme');
+    const quizPage = window.location.pathname === '/quiz';
+    if (savedTheme && quizPage) {
+        document.body.className = savedTheme;
+    }
+
     const currentPath = window.location.pathname;
     const isHome = currentPath.includes('/')
     const isQuiz = currentPath.includes('/quiz')

@@ -47,13 +47,32 @@ function setupEditProfileButton() {
 function setupThemeSelection() {
     const themeCards = document.querySelectorAll('.theme-card');
 
+    // Initialize active state from localStorage
+    const savedTheme = localStorage.getItem('selectedTheme');
+    if (savedTheme) {
+        themeCards.forEach(card => {
+            if (card.getAttribute('data-theme') === savedTheme) {
+                card.classList.add('active');
+            } else {
+                card.classList.remove('active');
+            }
+        });
+    }
+
     themeCards.forEach(card => {
         card.addEventListener('click', function () {
+            if (this.classList.contains('locked')) {
+                alert('This theme is locked! Purchase it in the Shop to unlock.');
+                return;
+            }
+            
             const theme = this.getAttribute('data-theme');
 
             themeCards.forEach(c => c.classList.remove('active'));
             this.classList.add('active');
 
+            // Apply and save theme
+            localStorage.setItem('selectedTheme', theme);
         });
     });
 }
