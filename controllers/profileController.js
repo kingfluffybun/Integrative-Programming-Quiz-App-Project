@@ -2,31 +2,37 @@ const db = require('../database/connection');
 
 const getProfile = async (req, res) => {
     try {
-        if (!req.session.userId) {
+        console.log('Session:', req.session); // Debug
+        console.log('UserID:', req.session?.userId); // Debug
+        
+        if (!req.session?.userId) {
             return res.redirect('/login');
         }
 
         const [users] = await db.query(
-            'SELECT id, username, email, coins, created_at FROM users WHERE id = ?',
+            'SELECT * FROM users WHERE id = ?',
             [req.session.userId]
         );
+        
+        console.log('Users result:', users); // Debug
+        console.log('First user:', users[0]); // Debug
 
-        if (users.length === 0) {
+        if (!users || users.length === 0) {
             return res.redirect('/login');
         }
 
         const user = users[0];
-
-        // Format the date
+        
+        // Safe date handling
+        const createdDate = new Date(user.created_at);
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        user.memberSince = user.created_at.toLocaleDateString('en-US', options);
+        user.memberSince = createdDate.toLocaleDateString('en-US', options);
 
         const [scores] = await db.query(
             'SELECT * FROM scores WHERE user_id = ? ORDER BY taken_at DESC LIMIT 10',
             [req.session.userId]
         );
 
-        // Calculate statistics
         let avgScore = 0;
         let highestScore = 0;
         if (scores.length > 0) {
@@ -48,8 +54,9 @@ const getProfile = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error fetching profile:', error);
-        res.status(500).send('Server Error');
+        console.error('FULL ERROR:', error);           // Check this in terminal
+        console.error('STACK:', error.stack);          // Check this in terminal
+        res.status(500).json({ error: error.message }); // Send real error to browser dev tools
     }
 };
 
@@ -91,7 +98,7 @@ const updateProfile = async (req, res) => {
 
     } catch (error) {
         console.error('Error updating profile:', error);
-        res.status(500).json({ success: false, message: 'Server Error' });
+        res.status(500).json({ success: false, message: 'Server Error 2' });
     }
 };
 
