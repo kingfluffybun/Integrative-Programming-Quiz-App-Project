@@ -273,6 +273,13 @@ function showQuestion(index) {
                 } else {
                     nextBtn.innerHTML = `<p style="text-wrap:nowrap;">Submit Quiz</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>`
                 }
+                setTimeout(() => {
+                  if (index < currentQuestions.length - 1) {
+                    showQuestion(index + 1)
+                  } else {
+                      submitQuiz()
+                  }
+                }, 1500);
             } else {
                 // Second click - go to next question or submit
                 if (index < currentQuestions.length - 1) {
