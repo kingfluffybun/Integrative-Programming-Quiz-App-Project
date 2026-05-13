@@ -15,6 +15,15 @@
 }
 
 .snoopy {
+    .site-header {
+        nav {
+            h1 {color: #A96B22}
+            .active-page {
+                background-color: #A96B22 !important;
+            }
+        };
+    }
+
     .main {
     /* linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),  */
     background-color: var(--snoopy-container-color);
@@ -117,7 +126,16 @@
     } */
 }
 
-.adventure-time {     
+.adventure-time {
+    .site-header {
+        nav {
+            h1 {color: var(--adventure-time-container-color)}
+            .active-page {
+                background-color: var(--adventure-time-container-color) !important;
+            }
+        };
+    }
+    
     .main {
     background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url(../wallpapers/adventuretime.jpg);
     background-color: var(--adventure-time-container-color);
@@ -220,7 +238,16 @@
     }
 }
 
-.spongebob {    
+.spongebob {
+    .site-header {
+        nav {
+            h1 {color: var(--spongebob-container-color)}
+            .active-page {
+                background-color: var(--spongebob-container-color) !important;
+            }
+        };
+    }
+
     .main {
     background-color: var(--spongebob-container-color);
     background-image: url(../wallpapers/spongebob.jpg);
@@ -327,7 +354,16 @@
     }
 }
 
-.powerpuff-girls {    
+.powerpuff-girls {
+    .site-header {
+        nav {
+            h1 {color: var(--powerpuff-girls-container-color)}
+            .active-page {
+                background-color: var(--powerpuff-girls-container-color) !important;
+            }
+        };
+    }
+
     .main {
     background-color: var(--powerpuff-girls-container-color);
     filter: saturate(125%);
@@ -436,7 +472,16 @@
     }
 }
 
-.toystory {     
+.toystory {
+    .site-header {
+        nav {
+            h1 {color: var(--toy-story-option-color)}
+            .active-page {
+                background-color: var(--toy-story-option-color) !important;
+            }
+        };
+    }
+
     .main {
     background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url(../wallpapers/toystory2.jpg);
     background-color: #001870;
