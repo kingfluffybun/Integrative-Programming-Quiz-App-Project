@@ -3,6 +3,7 @@ let currentQuestions = []
 let userAnswers = []
 let currentQuestionIndex = 0
 let coinsEarned = 0
+let score = 0
 let questionStates = []
 
 // Difficulty score mapping
@@ -85,6 +86,7 @@ async function getQuestions() {
 function displayQuestions(questions) {
   currentQuestionIndex = 0
   coinsEarned = 0
+  score = 0
   questionStates = questions.map(() => ({
     checked: false,
     isCorrect: false,
@@ -154,7 +156,7 @@ function showQuestion(index) {
             <p style="text-align: center; font-family: FeatherBold; font-size: 20px;">${progressText}</p>
             <div style="display: flex; justify-content: flex-end; align-items:center; gap: 8px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
-                <p style="font-family: FeatherBold; margin: 0; font-size: 20px;" id="score-display">${coinsEarned}</p>
+                <p style="font-family: FeatherBold; margin: 0; font-size: 20px;" id="score-display">${Math.round((score / currentQuestions.length) * 100)}</p>
             </div>
         `
 
@@ -360,8 +362,9 @@ function checkAnswer(index) {
     selectedAnswer,
   }
 
-  // Add points if correct
+  // Add points and update score if correct
   if (isCorrect) {
+    score++
     const difficulty = question.difficulty.toLowerCase()
     const points = difficultyScores[difficulty] || 10
     coinsEarned += points
@@ -403,7 +406,8 @@ function checkAnswer(index) {
 function updateScoreDisplay() {
   const scoreElement = document.getElementById('score-display')
   if (scoreElement) {
-    scoreElement.textContent = coinsEarned
+    const percentage = Math.round((score / currentQuestions.length) * 100)
+    scoreElement.textContent = `${percentage}`
   }
 }
 
