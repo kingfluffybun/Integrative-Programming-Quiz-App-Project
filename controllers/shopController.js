@@ -39,9 +39,23 @@ const purchaseTheme = async (req, res) => {
         await db.query('UPDATE users SET coins = coins - ? WHERE id = ?', [themeCost, userId]);
         await db.query('INSERT INTO themes (user_id, theme_name) VALUES (?, ?)', [userId, themeName]);
 
+        let boughtName = '';
+
+        if (themeName === 'snoopy') {
+            boughtName = 'Snoopy';
+        } else if (themeName === 'powerpuff-girls') {
+            boughtName = 'Powerpuff Girls';
+        } else if (themeName === 'spongebob') {
+            boughtName = 'Spongebob';
+        } else if (themeName === 'adventure-time') {
+            boughtName = 'Adventure Time';
+        } else if (themeName === 'toy-story') {
+            boughtName = 'Toy Story';
+        }
+
         res.json({ 
             success: true, 
-            message: `Successfully purchased ${themeName}!`, 
+            message: `Successfully purchased ${boughtName}!`, 
             newBalance: userCoins - themeCost 
         });
 
