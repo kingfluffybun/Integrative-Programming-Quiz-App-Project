@@ -147,6 +147,7 @@ nav .bottom {
     padding: 32px 20px;
     width: 100%;
     overflow-y: auto;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -589,7 +590,7 @@ button:hover {
 }
 
 .leaderboard-header {
-    margin-bottom: 60px;
+    margin-bottom: 36px;
 }
 
 .leaderboard-content {
@@ -608,7 +609,7 @@ button:hover {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     align-content: end;
-    height: 160px;
+    height: 200px;
 }
 
 .top-leaderboard-player {
