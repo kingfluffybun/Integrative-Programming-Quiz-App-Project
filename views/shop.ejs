@@ -98,6 +98,23 @@
                         <% } %>
                     </div>
                 </div>
+                <div class="cartoon-container" style="background-color: var(--toy-story-container-color);">
+                    <img src="/shop/toystory1.png" alt="" >
+                    <div class="cartoon-content">
+                        <h2>Toy Story</h2>
+                        <% if (typeof ownedThemes !== 'undefined' && ownedThemes.includes('toy-story')) { %>
+                            <button class="buy-btn" data-theme="toy-story" disabled style="color: var(--toy-story-container-color); opacity: 0.7; cursor: not-allowed;"><p>Owned</p></button>
+                        <% } else { %>
+                            <button class="buy-btn" data-theme="toy-story" style="color: var(--toy-story-container-color);">
+                                <p>Buy</p>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></svg>
+                                    <p>2000</p>
+                                </div>
+                            </button>
+                        <% } %>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
