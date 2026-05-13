@@ -585,6 +585,8 @@ function showLeaderboard(quizData) {
             
             html += `</div> <br>`;
 
+            html += `<div class="other-leaderboard">`;
+
             others.forEach((player, index) => {
               html += `
                 <div class="leaderboard-player">
@@ -598,6 +600,8 @@ function showLeaderboard(quizData) {
                 </div>
               `;
             });
+
+            html += `</div>`;
             
             listContainer.innerHTML = html;
         }
